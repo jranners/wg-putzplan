@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000", // Pure black for OLED
+                        "card-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "8px",
+                        "lg": "8px",
+                        "xl": "8px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .ios-status-bar {
+            height: 44px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display text-white selection:bg-primary/30">
+<!-- Mobile Container -->
+<div class="max-w-[430px] mx-auto min-h-screen flex flex-col relative pb-24">
+<!-- iOS Status Bar Placeholder -->
+<div class="ios-status-bar flex justify-between items-center px-6">
+<span class="text-[14px] font-semibold">9:41</span>
+<div class="flex items-center gap-1.5">
+<span class="material-icons text-[16px]">signal_cellular_alt</span>
+<span class="material-icons text-[16px]">wifi</span>
+<span class="material-icons text-[20px]">battery_full</span>
+</div>
+</div>
+<!-- Header -->
+<header class="px-6 pt-4 pb-2">
+<h1 class="text-2xl font-bold tracking-tight">Statistiken</h1>
+<p class="text-primary/60 text-sm">TidyUp Analytics Dashboard</p>
+</header>
+<!-- Segmented Control -->
+<div class="px-6 py-4 sticky top-0 bg-background-dark/80 backdrop-blur-md z-10">
+<div class="bg-card-dark p-1 rounded-lg flex items-center h-[44px]">
+<button class="flex-1 h-full rounded bg-primary text-black font-semibold text-sm transition-all">
+                    Woche
+                </button>
+<button class="flex-1 h-full rounded text-white/50 font-medium text-sm transition-all">
+                    Monat
+                </button>
+</div>
+</div>
+<!-- Scrollable Content -->
+<main class="flex-1 px-6 space-y-6 overflow-y-auto custom-scrollbar">
+<!-- Aufgaben-Beitrag (Task Contribution) -->
+<section class="bg-card-dark p-5 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="text-sm font-semibold uppercase tracking-wider text-white/40">Aufgaben-Beitrag</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-2xl font-bold">142</span>
+<span class="text-xs text-primary bg-primary/10 px-1.5 py-0.5 rounded font-medium">+12%</span>
+</div>
+</div>
+<span class="material-icons text-white/20">equalizer</span>
+</div>
+<!-- Bar Chart Placeholder -->
+<div class="flex items-end justify-between h-40 gap-3">
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-white/10 rounded-t h-[60%] relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/40">28</div>
+</div>
+<span class="text-[10px] font-medium text-white/30 uppercase">Lukas</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary rounded-t h-[90%] relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-primary">42</div>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase">Ich</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-white/20 rounded-t h-[45%] relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/40">21</div>
+</div>
+<span class="text-[10px] font-medium text-white/30 uppercase">Sarah</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-white/10 rounded-t h-[75%] relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/40">34</div>
+</div>
+<span class="text-[10px] font-medium text-white/30 uppercase">Marc</span>
+</div>
+</div>
+</section>
+<!-- Ausgaben-Verteilung (Expense Distribution) -->
+<section class="bg-card-dark p-5 rounded-lg border border-white/5">
+<h2 class="text-sm font-semibold uppercase tracking-wider text-white/40 mb-6">Ausgaben-Verteilung</h2>
+<div class="flex items-center gap-8">
+<!-- Minimalist Donut Chart -->
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="none" r="15.915" stroke="rgba(255,255,255,0.05)" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="none" r="15.915" stroke="#13b6ec" stroke-dasharray="65 35" stroke-linecap="butt" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="none" r="15.915" stroke="rgba(255,255,255,0.2)" stroke-dasharray="20 80" stroke-dashoffset="-65" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-xl font-bold">€245</span>
+<span class="text-[10px] text-white/40">Gesamt</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex-1 space-y-3">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-white/80">Lebensmittel</span>
+</div>
+<span class="font-mono">65%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-white/40"></div>
+<span class="text-white/80">Haushalt</span>
+</div>
+<span class="font-mono">20%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-white/10"></div>
+<span class="text-white/80">Sonstiges</span>
+</div>
+<span class="font-mono">15%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Performer Badge -->
+<section class="bg-card-dark p-1 rounded-lg border border-primary/30 flex items-center gap-4 overflow-hidden relative">
+<div class="absolute top-0 right-0 p-1">
+<div class="bg-primary/20 text-primary px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-tighter">MVP</div>
+</div>
+<div class="p-4 bg-primary/10 rounded-l-lg flex items-center justify-center">
+<span class="material-icons text-primary text-3xl">military_tech</span>
+</div>
+<div class="py-3">
+<h3 class="text-sm font-bold text-white uppercase">Wochen-Gewinner</h3>
+<p class="text-xs text-white/50 mt-0.5">Du hast diese Woche am meisten geputzt!</p>
+</div>
+</section>
+<!-- Insight Card -->
+<section class="bg-primary/5 p-4 rounded-lg border border-primary/20 flex gap-4">
+<span class="material-icons text-primary">info</span>
+<div>
+<p class="text-xs leading-relaxed text-white/80">
+<span class="font-bold text-primary">Pro Tipp:</span> Sarah hat diese Woche ihre Aufgaben 2 Tage früher als üblich erledigt. Ein High-Five wäre angebracht!
+                    </p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-background-dark/95 border-t border-white/5 backdrop-blur-xl px-6 pt-3 pb-8 flex justify-between items-center z-50">
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<span class="material-icons text-white/40">home</span>
+<span class="text-[10px] font-medium text-white/40 uppercase tracking-tighter">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<span class="material-icons text-white/40">checklist</span>
+<span class="text-[10px] font-medium text-white/40 uppercase tracking-tighter">Aufgaben</span>
+</button>
+<button class="flex flex-col items-center gap-1 min-w-[64px] relative">
+<div class="absolute -top-12 bg-primary w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/20 border-4 border-black">
+<span class="material-icons text-black text-2xl">add</span>
+</div>
+</button>
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<span class="material-icons text-primary">insights</span>
+<span class="text-[10px] font-bold text-primary uppercase tracking-tighter">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<span class="material-icons text-white/40">settings</span>
+<span class="text-[10px] font-medium text-white/40 uppercase tracking-tighter">Setup</span>
+</button>
+</nav>
+<!-- Home Indicator -->
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-[60]"></div>
+</div>
+</body></html>

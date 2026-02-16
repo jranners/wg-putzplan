@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit Expense - Flatmates App</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000",
+                        "surface": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            color: #F8FAFC;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .ios-safe-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-dark text-white selection:bg-primary/30">
+<!-- Mobile Screen Wrapper -->
+<div class="flex flex-col min-h-screen max-w-md mx-auto relative overflow-hidden">
+<!-- Header -->
+<header class="ios-safe-top flex items-center justify-between px-4 py-4 sticky top-0 bg-background-dark/80 backdrop-blur-md z-30">
+<button class="flex items-center text-primary active:opacity-50 transition-opacity min-h-[44px]">
+<span class="material-icons text-[28px]">chevron_left</span>
+<span class="text-sm font-medium -ml-1">Zurück</span>
+</button>
+<h1 class="text-sm font-semibold uppercase tracking-wider text-white/70">Ausgabe bearbeiten</h1>
+<div class="w-16"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Scroll Area -->
+<main class="flex-1 px-5 pt-4 pb-32 space-y-8 overflow-y-auto custom-scrollbar">
+<!-- Hero Amount Section -->
+<section class="text-center py-6">
+<p class="text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2 font-bold">Betrag</p>
+<div class="flex items-center justify-center gap-2">
+<span class="text-primary text-3xl font-bold">€</span>
+<input class="bg-transparent border-none text-white text-6xl font-extrabold p-0 focus:ring-0 w-auto max-w-[200px] text-center" type="text" value="45,50"/>
+</div>
+</section>
+<!-- Form Fields Section -->
+<div class="space-y-4">
+<!-- Title Field -->
+<div class="bg-surface rounded-lg p-1 border border-white/5 focus-within:border-primary/50 transition-colors">
+<div class="px-4 pt-3">
+<label class="text-[10px] uppercase tracking-widest text-white/40 font-bold block">Was wurde gekauft?</label>
+<input class="w-full bg-transparent border-none text-white text-base font-medium px-0 py-2 focus:ring-0 placeholder:text-white/20" type="text" value="Wocheneinkauf Rewe"/>
+</div>
+</div>
+<!-- Category Field -->
+<div class="bg-surface rounded-lg p-1 border border-white/5 flex items-center min-h-[64px] active:bg-white/5 transition-colors">
+<div class="px-4 w-full flex justify-between items-center">
+<div class="space-y-1">
+<label class="text-[10px] uppercase tracking-widest text-white/40 font-bold block">Kategorie</label>
+<div class="flex items-center gap-2">
+<span class="material-icons text-primary text-lg">shopping_basket</span>
+<span class="text-white text-base font-medium">Lebensmittel</span>
+</div>
+</div>
+<span class="material-icons text-white/20">expand_more</span>
+</div>
+</div>
+<!-- Payer Field -->
+<div class="bg-surface rounded-lg p-1 border border-white/5 flex items-center min-h-[64px] active:bg-white/5 transition-colors">
+<div class="px-4 w-full flex justify-between items-center">
+<div class="space-y-1">
+<label class="text-[10px] uppercase tracking-widest text-white/40 font-bold block">Bezahlt von</label>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center border border-primary/30">
+<img alt="User" class="w-full h-full object-cover" data-alt="Portrait of a young man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoKm_psvKe6PvD06mxQyQ5SgwS2isZMSsEQfP0ckZm2dp8Z0ktPKGw_x9Z0kfy26OREIBZnUb8YDFp-84FifSh8Jfj6_cwuRT4GEyQVeZ5hOtbnBO1io3aSBJMt3A-qFKvqO7O7qMQX_BYsUBKnNey9rH0ncHBWfLwfl3jlyZV6uPwsjuTakCqQ6bwbGmt5jmpu6XS8z1Z7YardTcwr-t8SYuubWdx9Y8Cw63iuMXk1b_X02FVFIwLaNKdhZ847stn_bVseJR0QD4y"/>
+</div>
+<span class="text-white text-base font-medium">Max Mustermann</span>
+</div>
+</div>
+<span class="material-icons text-white/20">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Split Summary Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Aufteilung</h2>
+<span class="text-[10px] font-bold text-primary px-2 py-0.5 border border-primary/30 rounded uppercase">Gleichmäßig</span>
+</div>
+<div class="space-y-2">
+<!-- Roommate 1 -->
+<div class="flex items-center justify-between p-3 bg-white/[0.02] rounded-lg border border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">M</div>
+<span class="text-sm font-medium text-white/80">Max</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold text-white">22,75€</span>
+</div>
+</div>
+<!-- Roommate 2 -->
+<div class="flex items-center justify-between p-3 bg-white/[0.02] rounded-lg border border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-white/40 font-bold text-xs">L</div>
+<span class="text-sm font-medium text-white/80">Lukas</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold text-white">22,75€</span>
+</div>
+</div>
+<!-- Roommate 3 -->
+<div class="flex items-center justify-between p-3 bg-white/[0.02] rounded-lg border border-white/5 opacity-40">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-white/5 flex items-center justify-center text-white/20 font-bold text-xs">S</div>
+<span class="text-sm font-medium text-white/80">Sarah</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold text-white">0,00€</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Date Metadata -->
+<div class="flex items-center justify-center gap-4 text-[10px] text-white/20 uppercase tracking-widest py-4">
+<span>Erstellt am 14. Okt 2023</span>
+<span class="w-1 h-1 rounded-full bg-white/10"></span>
+<span>ID: EXP-8821</span>
+</div>
+</main>
+<!-- Fixed Bottom Bar -->
+<footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-background-dark/95 backdrop-blur-xl border-t border-white/10 px-5 pt-4 ios-safe-bottom">
+<div class="flex gap-4 mb-4">
+<button class="flex-[1] flex items-center justify-center min-h-[48px] rounded-lg border border-red-500/50 text-red-500 font-bold text-sm tracking-wide active:bg-red-500/10 transition-colors">
+                    Löschen
+                </button>
+<button class="flex-[2] bg-primary flex items-center justify-center min-h-[48px] rounded-lg text-black font-extrabold text-sm tracking-widest uppercase shadow-[0_0_20px_rgba(19,182,236,0.3)] active:scale-[0.98] transition-all">
+                    Speichern
+                </button>
+</div>
+</footer>
+</div>
+<!-- Background Decoration for Industrial Feel -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2"></div>
+</div>
+</body></html>

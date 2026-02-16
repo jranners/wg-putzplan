@@ -1,0 +1,95 @@
+0 verbose cli /opt/homebrew/Cellar/node/25.6.1/bin/node /opt/homebrew/bin/npm
+1 info using npm@11.9.0
+2 info using node@v25.6.1
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan/.npmrc
+5 silly config load:file:/Users/juliusrannersberger/.npmrc
+6 silly config load:file:/opt/homebrew/etc/npmrc
+7 verbose title npm uninstall tailwindcss
+8 verbose argv "uninstall" "tailwindcss"
+9 verbose logfile logs-max:10 dir:/Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan/.npm-cache/_logs/2026-02-15T18_08_39_853Z-
+10 verbose logfile /Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan/.npm-cache/_logs/2026-02-15T18_08_39_853Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 silly idealTree buildDeps
+14 silly fetch manifest lucide-react@^0.330.0
+15 silly packumentCache full:https://registry.npmjs.org/lucide-react cache-miss
+16 http cache https://registry.npmjs.org/lucide-react 21ms (cache hit)
+17 silly packumentCache full:https://registry.npmjs.org/lucide-react set size:2154647 disposed:false
+18 silly fetch manifest react@latest
+19 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+20 http cache https://registry.npmjs.org/react 12ms (cache hit)
+21 silly packumentCache full:https://registry.npmjs.org/react set size:6484332 disposed:false
+22 silly fetch manifest react@^16.5.1 || ^17.0.0 || ^18.0.0
+23 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+24 http cache https://registry.npmjs.org/react 13ms (cache hit)
+25 silly packumentCache full:https://registry.npmjs.org/react set size:6484332 disposed:false
+26 silly fetch manifest tailwind-merge@^2.2.1
+27 silly packumentCache full:https://registry.npmjs.org/tailwind-merge cache-miss
+28 http cache https://registry.npmjs.org/tailwind-merge 4ms (cache hit)
+29 silly packumentCache full:https://registry.npmjs.org/tailwind-merge set size:1500018 disposed:false
+30 silly fetch manifest @types/node@^20.11.17
+31 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+32 http cache https://registry.npmjs.org/@types%2fnode 16ms (cache hit)
+33 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:10858893 disposed:false
+34 silly fetch manifest @types/react@^18.2.55
+35 silly packumentCache full:https://registry.npmjs.org/@types%2freact cache-miss
+36 http cache https://registry.npmjs.org/@types%2freact 12ms (cache hit)
+37 silly packumentCache full:https://registry.npmjs.org/@types%2freact set size:2588986 disposed:false
+38 silly fetch manifest @types/react-dom@^18.2.19
+39 silly packumentCache full:https://registry.npmjs.org/@types%2freact-dom cache-miss
+40 http cache https://registry.npmjs.org/@types%2freact-dom 2ms (cache hit)
+41 silly packumentCache full:https://registry.npmjs.org/@types%2freact-dom set size:429026 disposed:false
+42 silly fetch manifest eslint@^8.56.0
+43 silly packumentCache full:https://registry.npmjs.org/eslint cache-miss
+44 http cache https://registry.npmjs.org/eslint 4ms (cache hit)
+45 silly packumentCache full:https://registry.npmjs.org/eslint set size:1929113 disposed:false
+46 silly placeDep ROOT @types/node@20.19.33 REPLACE for: wg-putzplan@1.0.0 want: ^20.11.17
+47 silly placeDep ROOT @types/react@18.3.28 REPLACE for: wg-putzplan@1.0.0 want: ^18.2.55
+48 silly placeDep ROOT @types/react-dom@18.3.7 REPLACE for: wg-putzplan@1.0.0 want: ^18.2.19
+49 silly placeDep ROOT eslint@8.57.1 REPLACE for: wg-putzplan@1.0.0 want: ^8.56.0
+50 verbose stack Error: could not resolve
+50 verbose stack     at PlaceDep.failPeerConflict (/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:503:25)
+50 verbose stack     at new PlaceDep (/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:157:21)
+50 verbose stack     at #buildDepStep (/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:932:18)
+50 verbose stack     at async Arborist.buildIdealTree (/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:170:7)
+50 verbose stack     at async Promise.all (index 1)
+50 verbose stack     at async Arborist.reify (/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:110:5)
+50 verbose stack     at async Uninstall.exec (/opt/homebrew/lib/node_modules/npm/lib/commands/uninstall.js:51:5)
+50 verbose stack     at async Npm.exec (/opt/homebrew/lib/node_modules/npm/lib/npm.js:208:9)
+50 verbose stack     at async module.exports (/opt/homebrew/lib/node_modules/npm/lib/cli/entry.js:67:5)
+51 error code ERESOLVE
+52 error ERESOLVE could not resolve
+53 error
+54 error While resolving: wg-putzplan@1.0.0
+54 error Found: lucide-react@0.564.0
+54 error node_modules/lucide-react
+54 error   lucide-react@"^0.330.0" from the root project
+54 error
+54 error Could not resolve dependency:
+54 error lucide-react@"^0.330.0" from the root project
+54 error
+54 error Conflicting peer dependency: react@18.3.1
+54 error node_modules/react
+54 error   peer react@"^16.5.1 || ^17.0.0 || ^18.0.0" from lucide-react@0.330.0
+54 error   node_modules/lucide-react
+54 error     lucide-react@"^0.330.0" from the root project
+54 error
+54 error Fix the upstream dependency conflict, or retry
+54 error this command with --force or --legacy-peer-deps
+54 error to accept an incorrect (and potentially broken) dependency resolution.
+55 error
+55 error
+55 error For a full report see:
+55 error /Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan/.npm-cache/_logs/2026-02-15T18_08_39_853Z-eresolve-report.txt
+56 silly unfinished npm timer reify 1771178920121
+57 silly unfinished npm timer reify:loadTrees 1771178920121
+58 silly unfinished npm timer idealTree:buildDeps 1771178920144
+59 silly unfinished npm timer idealTree:#root 1771178920144
+60 verbose cwd /Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan
+61 verbose os Darwin 25.3.0
+62 verbose node v25.6.1
+63 verbose npm  v11.9.0
+64 verbose exit 1
+65 verbose code 1
+66 error A complete log of this run can be found in: /Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan/.npm-cache/_logs/2026-02-15T18_08_39_853Z-debug-0.log

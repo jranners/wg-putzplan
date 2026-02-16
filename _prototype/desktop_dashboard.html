@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Industrial Dashboard Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000",
+                        "card-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #000;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 10px;
+        }
+        .custom-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr 320px;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Fixed Left Sidebar -->
+<aside class="w-20 lg:w-64 bg-card-dark border-r border-white/5 flex flex-col items-center lg:items-stretch transition-all duration-300">
+<div class="p-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-sm">precision_manufacturing</span>
+</div>
+<span class="font-bold text-xl tracking-tight hidden lg:block">CORE<span class="text-primary">OS</span></span>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 bg-primary/10 text-primary rounded-lg border border-primary/20" href="#">
+<span class="material-icons">dashboard</span>
+<span class="font-medium hidden lg:block">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors" href="#">
+<span class="material-icons">account_balance_wallet</span>
+<span class="font-medium hidden lg:block">Finanzen</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors" href="#">
+<span class="material-icons">assignment</span>
+<span class="font-medium hidden lg:block">Aufgaben</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors" href="#">
+<span class="material-icons">event</span>
+<span class="font-medium hidden lg:block">Zeitplan</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors" href="#">
+<span class="material-icons">settings</span>
+<span class="font-medium hidden lg:block">Einstellungen</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/5">
+<div class="flex items-center gap-3 p-2 bg-black/40 rounded-lg">
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover" data-alt="Professional male portrait for profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgTQ1xETtHEGqxo4fXcn1MBRszEnatAszgJwCfXL8ZKKt_yWguJJYLDPLoAnwp3h8_rNRNzoxX_Fs7Se1WXnIAy95Yx1MIudC2gRQgzLOJFWJVowpNA_qzXtrx-XN3rMuuatCLf1lbfVFNoTMTpqMmsXIWoeZxUiSAF80HXeOaL5OCXe-AgSX7SczC7YBPL8Mjqy5TiJ-h57RWp24cjMfmNDszvYraYL0TB5w-dCCAQDIQLUKhGyU72qwj7x5vGYjGVATFvBftlBPJ"/>
+<div class="hidden lg:block overflow-hidden">
+<p class="text-xs font-semibold truncate">M. Schmidt</p>
+<p class="text-[10px] text-white/40 truncate">Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-dark p-6 lg:p-10">
+<!-- Header Section -->
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-10">
+<div>
+<h1 class="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
+<p class="text-white/40 mt-1">Statusbericht für Hausverwaltung Unit 04</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-icons text-white/40 hover:text-white cursor-pointer">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></span>
+</div>
+<div class="h-8 w-px bg-white/10 mx-2"></div>
+<span class="text-sm text-white/60 font-medium">14. Oktober 2023</span>
+</div>
+</header>
+<!-- Dashboard Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Finanz-Status Widget -->
+<section class="col-span-12 lg:col-span-8 bg-card-dark rounded-lg border border-white/5 p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+<div>
+<p class="text-sm font-semibold text-white/40 uppercase tracking-widest mb-2">Finanz-Status</p>
+<h2 class="text-5xl font-bold tracking-tighter">€ 14.280,50</h2>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex items-center gap-1 text-emerald-400 text-sm font-medium">
+<span class="material-icons text-sm">trending_up</span>
+<span>+4.2%</span>
+</div>
+<div class="text-white/30 text-sm">vs. letzter Monat</div>
+</div>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 transition-all active:scale-95">
+<span class="material-icons">add</span>
+<span>Ausgabe hinzufügen</span>
+</button>
+</div>
+<!-- Stats Sub-row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 border-t border-white/10 pt-8 relative z-10">
+<div>
+<p class="text-[10px] text-white/40 uppercase font-bold mb-1">Mieteinnahmen</p>
+<p class="text-lg font-semibold">€ 9.200</p>
+</div>
+<div>
+<p class="text-[10px] text-white/40 uppercase font-bold mb-1">Fixkosten</p>
+<p class="text-lg font-semibold">€ 3.140</p>
+</div>
+<div>
+<p class="text-[10px] text-white/40 uppercase font-bold mb-1">Instandhaltung</p>
+<p class="text-lg font-semibold">€ 1.850</p>
+</div>
+<div>
+<p class="text-[10px] text-white/40 uppercase font-bold mb-1">Puffer</p>
+<p class="text-lg font-semibold text-primary">€ 890</p>
+</div>
+</div>
+</section>
+<!-- Letzte Aktivitäten (Tall Sidebar) -->
+<section class="col-span-12 lg:col-span-4 bg-card-dark rounded-lg border border-white/5 p-6 flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-lg uppercase tracking-tight">Letzte Aktivitäten</h3>
+<span class="material-icons text-white/20">more_vert</span>
+</div>
+<div class="space-y-6 overflow-y-auto max-h-[400px] pr-2">
+<!-- Activity Item -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded bg-emerald-500/10 flex-shrink-0 flex items-center justify-center">
+<span class="material-icons text-emerald-500 text-xl">check_circle</span>
+</div>
+<div>
+<p class="text-sm font-medium">Wartung Aufzug abgeschlossen</p>
+<p class="text-[11px] text-white/30 uppercase mt-0.5">Vor 2 Std • Haus A</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded bg-primary/10 flex-shrink-0 flex items-center justify-center">
+<span class="material-icons text-primary text-xl">payments</span>
+</div>
+<div>
+<p class="text-sm font-medium">Mieteingang Apt. 402</p>
+<p class="text-[11px] text-white/30 uppercase mt-0.5">Vor 5 Std • Finanzen</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded bg-red-500/10 flex-shrink-0 flex items-center justify-center">
+<span class="material-icons text-red-500 text-xl">report_problem</span>
+</div>
+<div>
+<p class="text-sm font-medium">Heizungsausfall gemeldet</p>
+<p class="text-[11px] text-white/30 uppercase mt-0.5">Heute, 08:30 • Haus C</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded bg-white/5 flex-shrink-0 flex items-center justify-center">
+<span class="material-icons text-white/40 text-xl">person_add</span>
+</div>
+<div>
+<p class="text-sm font-medium">Neuer Mieter registriert</p>
+<p class="text-[11px] text-white/30 uppercase mt-0.5">Gestern • CRM</p>
+</div>
+</div>
+<!-- Activity Item -->
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded bg-primary/10 flex-shrink-0 flex items-center justify-center">
+<span class="material-icons text-primary text-xl">payments</span>
+</div>
+<div>
+<p class="text-sm font-medium">Mieteingang Apt. 105</p>
+<p class="text-[11px] text-white/30 uppercase mt-0.5">Gestern • Finanzen</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Zeitplan (Horizontal Strip) -->
+<section class="col-span-12 bg-card-dark rounded-lg border border-white/5 p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-sm uppercase tracking-widest text-white/40">Zeitplan</h3>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded border border-white/10 flex items-center justify-center hover:bg-white/5">
+<span class="material-icons text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded border border-white/10 flex items-center justify-center hover:bg-white/5">
+<span class="material-icons text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-2">
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">Mo</p>
+<p class="text-xl font-bold mt-1">14</p>
+<div class="w-1 h-1 bg-primary rounded-full mx-auto mt-2"></div>
+</div>
+<!-- Active Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-primary text-white text-center border border-primary">
+<p class="text-xs text-white/70 uppercase font-bold">Di</p>
+<p class="text-xl font-bold mt-1">15</p>
+<div class="w-1 h-1 bg-white rounded-full mx-auto mt-2"></div>
+</div>
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">Mi</p>
+<p class="text-xl font-bold mt-1">16</p>
+</div>
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">Do</p>
+<p class="text-xl font-bold mt-1">17</p>
+<div class="w-1 h-1 bg-primary rounded-full mx-auto mt-2"></div>
+</div>
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">Fr</p>
+<p class="text-xl font-bold mt-1">18</p>
+</div>
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">Sa</p>
+<p class="text-xl font-bold mt-1">19</p>
+</div>
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">So</p>
+<p class="text-xl font-bold mt-1">20</p>
+</div>
+<!-- Day Block -->
+<div class="flex-shrink-0 w-24 p-4 rounded-lg bg-black/40 border border-white/5 text-center">
+<p class="text-xs text-white/30 uppercase font-bold">Mo</p>
+<p class="text-xl font-bold mt-1">21</p>
+</div>
+</div>
+</section>
+<!-- Deine nächsten Aufgaben -->
+<section class="col-span-12 lg:col-span-12 bg-card-dark rounded-lg border border-white/5 p-6">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-bold text-lg uppercase tracking-tight">Deine nächsten Aufgaben</h3>
+<a class="text-xs text-primary font-bold uppercase hover:underline" href="#">Alle Aufgaben anzeigen</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+<!-- Task Item -->
+<div class="bg-black/60 p-5 rounded-lg border border-white/5 hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Priorität Hoch</span>
+<span class="text-white/30 text-xs">Heute</span>
+</div>
+<h4 class="font-semibold text-base mb-1">Brandschutz-Inspektion</h4>
+<p class="text-sm text-white/50 mb-6">Haus B, Alle Etagen prüfen</p>
+<button class="w-full bg-transparent border border-primary text-primary hover:bg-primary hover:text-white font-bold py-2 rounded-lg transition-all text-sm">
+                                Erledigt
+                            </button>
+</div>
+<!-- Task Item -->
+<div class="bg-black/60 p-5 rounded-lg border border-white/5 hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-white/10 text-white/50 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Normal</span>
+<span class="text-white/30 text-xs">Morgen</span>
+</div>
+<h4 class="font-semibold text-base mb-1">Mietvertrag Erneuerung</h4>
+<p class="text-sm text-white/50 mb-6">Apt. 212 - Familie Müller</p>
+<button class="w-full bg-transparent border border-primary text-primary hover:bg-primary hover:text-white font-bold py-2 rounded-lg transition-all text-sm">
+                                Erledigt
+                            </button>
+</div>
+<!-- Task Item -->
+<div class="bg-black/60 p-5 rounded-lg border border-white/5 hover:border-primary/40 transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Wichtig</span>
+<span class="text-white/30 text-xs">18. Okt</span>
+</div>
+<h4 class="font-semibold text-base mb-1">Treppenhausreinigung</h4>
+<p class="text-sm text-white/50 mb-6">Quartalsabrechnung Service</p>
+<button class="w-full bg-transparent border border-primary text-primary hover:bg-primary hover:text-white font-bold py-2 rounded-lg transition-all text-sm">
+                                Erledigt
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

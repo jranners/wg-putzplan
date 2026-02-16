@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TidyUp - Keine Ausgaben</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13B6EC", // Custom Cyan from prompt
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#000000", // Pure Black as requested
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem", // 8px for industrial precision
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .ios-safe-area-top {
+            padding-top: env(safe-area-inset-top);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark text-[#F8FAFC] font-display selection:bg-primary/30">
+<!-- Mobile Device Container -->
+<div class="relative flex flex-col h-screen max-w-md mx-auto overflow-hidden">
+<!-- Status Bar (Mock) -->
+<header class="ios-safe-area-top w-full px-6 py-4 flex justify-between items-center z-10">
+<div class="text-sm font-semibold tracking-tight">9:41</div>
+<div class="flex items-center space-x-1.5">
+<span class="material-icons-outlined text-sm">signal_cellular_alt</span>
+<span class="material-icons-outlined text-sm">wifi</span>
+<span class="material-icons-outlined text-sm rotate-90">battery_full</span>
+</div>
+</header>
+<!-- Main Content (Empty State) -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 text-center">
+<!-- Geometric Piggy Bank Illustration -->
+<div class="mb-12 relative">
+<div class="w-32 h-32 flex items-center justify-center text-primary">
+<svg class="w-24 h-24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" viewbox="0 0 24 24">
+<!-- Industrial/Geometric Piggy Bank Style -->
+<path d="M19 18.5V21M5 18.5V21M12 5V3M21 12C21 16.4183 17.4183 20 13 20H11C6.58172 20 3 16.4183 3 12C3 7.58172 6.58172 4 11 4C12.1304 4 13.2045 4.2348 14.1802 4.65759C14.6534 4.1481 15.3129 3.82424 16.0504 3.75476C17.0601 3.65961 18 4.41443 18.15 5.41804L18.4239 7.24395C19.9984 8.35858 21 10.1511 21 12Z"></path>
+<rect height="1.5" width="1.5" x="17" y="11"></rect>
+<path d="M7 11H12"></path>
+</svg>
+</div>
+<!-- Subtle Glow behind the icon for depth -->
+<div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full -z-10"></div>
+</div>
+<!-- Text Block -->
+<div class="space-y-4">
+<h1 class="text-2xl font-bold tracking-tight text-[#F8FAFC]">
+                    Keine Ausgaben
+                </h1>
+<p class="text-[#F8FAFC]/60 leading-relaxed text-base max-w-[280px] mx-auto">
+                    Behalte den Überblick über eure WG-Finanzen. Erfasse hier deine erste gemeinsame Ausgabe.
+                </p>
+</div>
+<!-- CTA Button -->
+<button class="mt-12 w-full max-w-xs h-14 bg-primary hover:bg-primary/90 text-background-dark font-bold text-base rounded-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-icons-outlined text-xl">add_circle_outline</span>
+                Ausgabe hinzufügen
+            </button>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="bg-background-dark border-t border-[#F8FAFC]/10 ios-safe-area-bottom w-full">
+<div class="flex justify-around items-center h-16">
+<!-- Expenses (Active) -->
+<a class="flex flex-col items-center justify-center w-full text-primary" href="#">
+<span class="material-icons-outlined text-[26px]">account_balance_wallet</span>
+<span class="text-[10px] font-semibold mt-1 uppercase tracking-wider">Ausgaben</span>
+</a>
+<!-- Groups -->
+<a class="flex flex-col items-center justify-center w-full text-[#F8FAFC]/40" href="#">
+<span class="material-icons-outlined text-[26px]">group</span>
+<span class="text-[10px] font-semibold mt-1 uppercase tracking-wider">Gruppen</span>
+</a>
+<!-- Statistics -->
+<a class="flex flex-col items-center justify-center w-full text-[#F8FAFC]/40" href="#">
+<span class="material-icons-outlined text-[26px]">insights</span>
+<span class="text-[10px] font-semibold mt-1 uppercase tracking-wider">Statistik</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center w-full text-[#F8FAFC]/40" href="#">
+<span class="material-icons-outlined text-[26px]">person</span>
+<span class="text-[10px] font-semibold mt-1 uppercase tracking-wider">Profil</span>
+</a>
+</div>
+</nav>
+<!-- Home Indicator (Mock) -->
+<div class="flex justify-center pb-2 bg-background-dark">
+<div class="w-32 h-1 bg-[#F8FAFC]/20 rounded-full"></div>
+</div>
+</div>
+</body></html>

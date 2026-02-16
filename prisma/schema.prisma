@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  role      String   @default("member")
+  avatarUrl String?
+  createdAt DateTime @default(now())
+
+  paidExpenses        Expense[]      @relation("ExpensePayer")
+  receivedSettlements Expense[]      @relation("ExpenseRecipient")
+  tasks               Task[]
+  shoppingItems       ShoppingItem[]
+}
+
+model Task {
+  id       String   @id @default(uuid())
+  title    String
+  details  String   @default("")
+  priority String   @default("normal")
+  dueDate  DateTime
+  isDone   Boolean  @default(false)
+  rotation String   @default("none")
+
+  assigneeId String?
+  assignee   User?   @relation(fields: [assigneeId], references: [id])
+}
+
+model Expense {
+  id              String   @id @default(uuid())
+  title           String
+  amount          Float
+  date            DateTime @default(now())
+  split           String   @default("equal")
+  category        String   @default("other")
+  transactionType String   @default("EXPENSE")
+
+  payerId     String
+  payer       User    @relation("ExpensePayer", fields: [payerId], references: [id])
+
+  recipientId String?
+  recipient   User?   @relation("ExpenseRecipient", fields: [recipientId], references: [id])
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  title     String
+  meta      String
+  type      String   @default("info")
+  timestamp DateTime @default(now())
+}
+
+model ShoppingItem {
+  id        String   @id @default(uuid())
+  title     String
+  isBought  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  addedById String
+  addedBy   User     @relation(fields: [addedById], references: [id])
+}
+
+model WG {
+  id      String @id @default(uuid())
+  name    String
+  adminId String
+
+  inviteCodes InviteCode[]
+}
+
+model InviteCode {
+  id        String   @id @default(uuid())
+  code      String   @unique
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  usedBy    String?
+
+  wgId String
+  wg   WG     @relation(fields: [wgId], references: [id])
+}

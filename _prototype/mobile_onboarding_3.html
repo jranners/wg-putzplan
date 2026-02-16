@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000",
+                        "slate-custom": "#F8FAFC"
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>TidyUp Onboarding - Step 3</title>
+<style>
+        body {
+            background-color: #000000;
+        }
+        .safe-area-top {
+            padding-top: env(safe-area-inset-top, 20px);
+        }
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display text-slate-custom bg-background-dark overflow-hidden">
+<!-- Mobile Container (Simulating Phone Viewport) -->
+<div class="relative h-screen w-full max-w-md mx-auto flex flex-col justify-between px-6 safe-area-top safe-area-bottom">
+<!-- Header -->
+<header class="h-16 flex items-center">
+<button aria-label="Go back" class="p-2 -ml-2 text-primary hover:opacity-80 transition-opacity">
+<span class="material-icons text-3xl">arrow_back</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-center text-center">
+<!-- Illustration Area -->
+<div class="relative w-full aspect-square max-w-[280px] mb-12 flex items-center justify-center">
+<!-- Decorative Glow -->
+<div class="absolute inset-0 bg-primary/10 blur-[60px] rounded-full"></div>
+<!-- Stylized Industrial Handshake & Currency Illustration -->
+<div class="relative z-10 w-full h-full flex items-center justify-center">
+<div class="relative w-48 h-48 border-4 border-primary/30 rounded-xl rotate-45 flex items-center justify-center">
+<div class="absolute inset-2 border-2 border-primary/20 rounded-lg"></div>
+<div class="-rotate-45 flex flex-col items-center gap-4">
+<!-- Handshake Icon Represented by Industrial Shapes -->
+<div class="flex items-center text-primary">
+<span class="material-icons text-7xl">handshake</span>
+</div>
+<!-- Currency Symbol -->
+<div class="bg-primary text-black font-bold text-2xl w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(19,182,236,0.4)]">
+                                €
+                            </div>
+</div>
+</div>
+<!-- Floating Tech Accents -->
+<div class="absolute top-4 right-4 text-primary/40">
+<span class="material-icons text-4xl">account_balance_wallet</span>
+</div>
+<div class="absolute bottom-8 left-4 text-primary/40">
+<span class="material-icons text-3xl">trending_up</span>
+</div>
+</div>
+<!-- Fallback/Reference Image Mapping -->
+<div class="hidden">
+<img data-alt="High contrast industrial handshake and currency icon illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ5SboTbX0OjMTG3PsRzAnKB4hgUrASph60NCC9HO8A4FNf4KGa5jw1xfXzEH321_k1M3iZC5xHMUTW0d0GBsSsHjQm9WvQKjJXvVFh9GoxKw26zWdWik0iU6BCvMXZWhzqSp3hyK0rHaoPNrSxtYSP45tcDiGL5TWfRiv_yTPv5tk4OGdIJOOqbJBgEAT_wU1LE8L-TZLrpBjVyLVvlFOmZacSjLTtd9AptWtoU-gs9Ic6vFF-aYgqaeXkrMuAFswrIAKWHuYEAeu"/>
+</div>
+</div>
+<!-- Text Stack -->
+<div class="space-y-4 max-w-sm">
+<h1 class="text-3xl font-bold text-slate-custom leading-tight">
+                    Schulden begleichen
+                </h1>
+<p class="text-slate-custom/70 text-lg leading-relaxed">
+                    Behalte den Überblick über WG-Finanzen und gleiche Schulden mit nur einem Klick aus.
+                </p>
+</div>
+</main>
+<!-- Footer Actions -->
+<footer class="mt-auto py-8 flex flex-col items-center gap-8">
+<!-- Progress Indicator (Pagination Dots) -->
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-primary/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(19,182,236,0.6)]"></div>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold text-lg py-4 rounded-lg transition-all active:scale-[0.98] shadow-lg">
+                Abschließen
+            </button>
+</footer>
+<!-- Swipe Indicator (Visual Guide) -->
+<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/10 rounded-full"></div>
+</div>
+</body></html>

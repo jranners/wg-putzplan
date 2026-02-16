@@ -1,0 +1,22 @@
+'Log files:
+/Users/juliusrannersberger/Desktop/Flatcontroll/wg-putzplan/.npm-cache/_logs/2026-02-15T18_08_39_853Z-debug-0.log
+
+# npm resolution error report
+
+While resolving: wg-putzplan@1.0.0
+Found: lucide-react@0.564.0
+node_modules/lucide-react
+  lucide-react@"^0.330.0" from the root project
+
+Could not resolve dependency:
+lucide-react@"^0.330.0" from the root project
+
+Conflicting peer dependency: react@18.3.1
+node_modules/react
+  peer react@"^16.5.1 || ^17.0.0 || ^18.0.0" from lucide-react@0.330.0
+  node_modules/lucide-react
+    lucide-react@"^0.330.0" from the root project
+
+Fix the upstream dependency conflict, or retry
+this command with --force or --legacy-peer-deps
+to accept an incorrect (and potentially broken) dependency resolution.

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopping List Desktop Pure Black</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0cb5ed",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#000000",
+                        "card-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+        }
+        /* Custom scrollbar for industrial feel */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1A1A1A;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0cb5ed;
+        }
+    </style>
+</head>
+<body class="font-display text-white selection:bg-primary/30 selection:text-primary overflow-hidden">
+<div class="flex h-screen bg-background-dark">
+<!-- FIXED LEFT SIDEBAR (Structural Nav) -->
+<aside class="w-16 flex flex-col items-center py-8 border-r border-card-dark bg-background-dark">
+<div class="mb-10 text-primary">
+<span class="material-icons text-3xl">precision_manufacturing</span>
+</div>
+<nav class="flex flex-col gap-8 flex-1">
+<button class="text-primary hover:text-primary transition-colors">
+<span class="material-icons">home</span>
+</button>
+<button class="text-white/40 hover:text-primary transition-colors">
+<span class="material-icons">account_balance_wallet</span>
+</button>
+<button class="text-white/40 hover:text-primary transition-colors">
+<span class="material-icons">inventory_2</span>
+</button>
+<button class="text-white/40 hover:text-primary transition-colors">
+<span class="material-icons">group</span>
+</button>
+</nav>
+<div class="mt-auto">
+<button class="text-white/40 hover:text-primary transition-colors">
+<span class="material-icons">settings</span>
+</button>
+</div>
+</aside>
+<!-- SPLIT-VIEW NAVIGATION COLUMN (List Types) -->
+<aside class="w-64 border-r border-card-dark bg-background-dark flex flex-col">
+<div class="p-8 pb-4">
+<h2 class="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold mb-8">Management</h2>
+<div class="flex flex-col space-y-2">
+<button class="flex items-center gap-3 px-4 py-3 bg-primary/10 border-l-2 border-primary text-primary transition-all group">
+<span class="material-icons text-sm">groups</span>
+<span class="font-semibold text-sm">Shared List</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 text-white/40 hover:text-white/80 transition-all group">
+<span class="material-icons text-sm">person</span>
+<span class="font-semibold text-sm">Personal List</span>
+</button>
+</div>
+</div>
+<div class="p-8 mt-auto">
+<div class="bg-card-dark p-4 rounded-lg border border-white/5">
+<p class="text-[10px] text-white/40 uppercase tracking-widest mb-2">Flat Status</p>
+<div class="flex items-center gap-2">
+<div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-xs font-medium">3 Active Now</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA (Active List) -->
+<main class="flex-1 flex flex-col bg-background-dark relative">
+<!-- HEADER / ADD ITEM -->
+<header class="p-8 border-b border-card-dark">
+<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-2xl font-bold tracking-tight">Shared Shopping List</h1>
+<p class="text-white/40 text-sm mt-1">Industrial Flat Management System v2.0</p>
+</div>
+<div class="text-right">
+<span class="text-primary text-2xl font-mono">08</span>
+<span class="text-white/40 text-xs uppercase tracking-widest block">Active Items</span>
+</div>
+</div>
+<div class="relative group">
+<input class="w-full bg-card-dark border-2 border-primary/20 focus:border-primary text-white px-5 py-4 rounded-lg outline-none transition-all placeholder:text-white/20 font-mono text-sm tracking-wider" placeholder="ADD NEW ITEM TO LIST..." type="text"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:scale-110 transition-transform">
+<span class="material-icons">add_box</span>
+</button>
+</div>
+</div>
+</header>
+<!-- LIST CONTENT -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="max-w-4xl mx-auto space-y-3">
+<!-- ITEM CARD -->
+<div class="group bg-card-dark border border-white/5 rounded-lg p-4 flex items-center justify-between hover:border-primary/40 transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-primary flex items-center justify-center rounded cursor-pointer">
+<!-- Checkbox state: empty -->
+</div>
+<div>
+<h3 class="font-medium text-white/90">Oat Milk (Barista Edition)</h3>
+<p class="text-xs text-white/30 font-mono">UNIT: 3L • ASSIGNED: SARAH</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs bg-white/5 px-2 py-1 rounded text-white/40">GROCERY</span>
+<button class="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-500 transition-all">
+<span class="material-icons text-sm">delete</span>
+</button>
+</div>
+</div>
+<!-- ITEM CARD -->
+<div class="group bg-card-dark border border-white/5 rounded-lg p-4 flex items-center justify-between hover:border-primary/40 transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-primary flex items-center justify-center rounded cursor-pointer">
+<!-- Checkbox state: empty -->
+</div>
+<div>
+<h3 class="font-medium text-white/90">Dishwasher Tabs</h3>
+<p class="text-xs text-white/30 font-mono">UNIT: 1 PKT • ASSIGNED: FLAT</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs bg-white/5 px-2 py-1 rounded text-white/40">CLEANING</span>
+<button class="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-500 transition-all">
+<span class="material-icons text-sm">delete</span>
+</button>
+</div>
+</div>
+<!-- ITEM CARD -->
+<div class="group bg-card-dark border border-white/5 rounded-lg p-4 flex items-center justify-between hover:border-primary/40 transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-primary flex items-center justify-center rounded cursor-pointer">
+<!-- Checkbox state: empty -->
+</div>
+<div>
+<h3 class="font-medium text-white/90">Avocados (Ripe)</h3>
+<p class="text-xs text-white/30 font-mono">QTY: 4 • ASSIGNED: TOM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs bg-white/5 px-2 py-1 rounded text-white/40">GROCERY</span>
+<button class="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-500 transition-all">
+<span class="material-icons text-sm">delete</span>
+</button>
+</div>
+</div>
+<!-- ITEM CARD -->
+<div class="group bg-card-dark border border-white/5 rounded-lg p-4 flex items-center justify-between hover:border-primary/40 transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 border-2 border-primary flex items-center justify-center rounded cursor-pointer">
+<!-- Checkbox state: empty -->
+</div>
+<div>
+<h3 class="font-medium text-white/90">Espresso Beans (Dark Roast)</h3>
+<p class="text-xs text-white/30 font-mono">UNIT: 1KG • ASSIGNED: FLAT</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs bg-white/5 px-2 py-1 rounded text-white/40">GROCERY</span>
+<button class="opacity-0 group-hover:opacity-100 text-white/20 hover:text-red-500 transition-all">
+<span class="material-icons text-sm">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- COLLAPSIBLE CHECKED ITEMS -->
+<div class="max-w-4xl mx-auto mt-12 mb-20">
+<button class="w-full flex items-center justify-between py-4 border-t border-card-dark group">
+<div class="flex items-center gap-3">
+<span class="material-icons text-white/20 group-hover:text-primary transition-colors">expand_more</span>
+<span class="text-sm font-bold tracking-widest text-white/20 uppercase group-hover:text-white transition-colors">Checked Items (12)</span>
+</div>
+<span class="text-[10px] font-mono text-white/10 uppercase tracking-widest">Auto-archive in 24h</span>
+</button>
+<div class="space-y-2 mt-4 opacity-40">
+<!-- COMPLETED ITEM -->
+<div class="bg-card-dark/50 border border-white/5 rounded-lg p-3 flex items-center justify-between grayscale">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 bg-primary flex items-center justify-center rounded">
+<span class="material-icons text-black text-sm font-bold">check</span>
+</div>
+<div>
+<h3 class="text-sm font-medium text-white/60 line-through">Paper Towels</h3>
+<p class="text-[10px] text-white/20 font-mono">COMPLETED BY MARCUS</p>
+</div>
+</div>
+<span class="text-[10px] bg-white/5 px-2 py-0.5 rounded text-white/20 font-mono">CLEANING</span>
+</div>
+<!-- COMPLETED ITEM -->
+<div class="bg-card-dark/50 border border-white/5 rounded-lg p-3 flex items-center justify-between grayscale">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 bg-primary flex items-center justify-center rounded">
+<span class="material-icons text-black text-sm font-bold">check</span>
+</div>
+<div>
+<h3 class="text-sm font-medium text-white/60 line-through">Fresh Basil</h3>
+<p class="text-[10px] text-white/20 font-mono">COMPLETED BY SARAH</p>
+</div>
+</div>
+<span class="text-[10px] bg-white/5 px-2 py-0.5 rounded text-white/20 font-mono">GROCERY</span>
+</div>
+</div>
+</div>
+</div>
+<!-- FOOTER INFO BAR -->
+<footer class="h-12 border-t border-card-dark flex items-center px-8 justify-between bg-black/80 backdrop-blur-md">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-[10px] font-mono tracking-wider text-white/40">SYSTEM STATUS: OPTIMAL</span>
+</div>
+<div class="h-4 w-px bg-card-dark"></div>
+<span class="text-[10px] font-mono tracking-wider text-white/40">LAST SYNC: 12:42:01</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono tracking-wider text-white/20">LOGGED AS: SYSTEM_ADMIN_01</span>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

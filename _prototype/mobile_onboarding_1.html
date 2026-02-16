@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000",
+                        "slate-custom": "#94a3b8",
+                        "off-white": "#f8fafc"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .safe-top { padding-top: env(safe-area-inset-top); }
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display text-white selection:bg-primary/30">
+<div class="flex flex-col min-h-screen w-full max-w-md mx-auto relative px-6 bg-background-dark">
+<!-- Top Utility Bar -->
+<header class="safe-top flex justify-end py-4">
+<button class="text-slate-custom hover:text-white transition-colors text-sm font-medium py-2">
+                Überspringen
+            </button>
+</header>
+<!-- Main Content Area (Swipeable container feel) -->
+<main class="flex-grow flex flex-col items-center justify-center text-center">
+<!-- Hero Illustration Container -->
+<div class="relative w-64 h-64 mb-12 flex items-center justify-center">
+<!-- Abstract Glow -->
+<div class="absolute inset-0 bg-primary/10 blur-[60px] rounded-full"></div>
+<!-- Stylized Industrial Cleaning Illustration (CSS + Icons for visual fidelity) -->
+<div class="relative z-10 flex items-end justify-center space-x-2">
+<div class="bg-primary p-6 rounded-2xl shadow-lg shadow-primary/20 rotate-[-12deg]">
+<span class="material-icons text-background-dark text-6xl">cleaning_services</span>
+</div>
+<div class="bg-off-white p-4 rounded-xl shadow-lg -ml-4 mb-4 rotate-[15deg]">
+<span class="material-icons text-primary text-4xl">water_drop</span>
+</div>
+</div>
+<!-- Hidden data-alt for image requirement -->
+<img alt="Cleaning supplies icon" class="hidden" data-alt="Industrial blue spray bottle and cleaning sponge icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCod-ovJEYd9Jo5myQDwjvTGuWpQJdLtZk8VDCtxfXdJUkNmFX2oXoc0avdwf0eRNhzFPQsG8ViPhNMTYKaxiKN0mri6U0EL_jXM7_4JPtkbDW4DZWVWEOIbnousAdmBZ_AbqFR994Z3TD1NTLlvj9r2B53piEvY-xJlKILEDTnGXZVNQV8qqy11c8TggnDW9vd_r9Jof5JcTpt6j_cEkoGAqQvR5Tr8UzIQyZmfQyon7tyKf54JlAKOK4SEBoH8TXvcCTb4thqCTw5"/>
+</div>
+<!-- Typography Block -->
+<div class="space-y-4 max-w-xs">
+<h1 class="text-3xl font-bold text-off-white tracking-tight leading-tight">
+                    Putzpläne meistern
+                </h1>
+<p class="text-slate-custom text-base leading-relaxed">
+                    Erstelle Aufgaben, weise sie Mitbewohnern zu und halte deine WG glänzend sauber.
+                </p>
+</div>
+</main>
+<!-- Bottom Navigation Area -->
+<footer class="safe-bottom pb-10 space-y-8">
+<!-- Progress Indicator Dots -->
+<div class="flex justify-center items-center space-x-2.5">
+<div class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(19,182,236,0.6)]"></div>
+<div class="w-2 h-2 rounded-full bg-white/20"></div>
+<div class="w-2 h-2 rounded-full bg-white/20"></div>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-4 rounded-lg transition-all active:scale-[0.98] text-lg">
+                Weiter
+            </button>
+</footer>
+<!-- Subtle Gradient Overlays for purely aesthetic touch -->
+<div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
+</div>
+</body></html>

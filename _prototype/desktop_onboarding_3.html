@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0eb8f1",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#000000",
+                        "card-dark": "#1A1A1A",
+                        "cyan-industrial": "#13B6EC",
+                        "text-main": "#F8FAFC",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Onboarding Step 3: Settle Debts</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex items-center justify-center p-6 antialiased">
+<!-- Onboarding Modal Container -->
+<div class="relative w-full max-w-2xl bg-white dark:bg-card-dark rounded-lg shadow-2xl overflow-hidden border border-primary/10">
+<!-- Top Visual Section -->
+<div class="p-12 flex flex-col items-center text-center">
+<!-- Industrial Illustration Placeholder -->
+<div class="w-48 h-48 mb-10 flex items-center justify-center relative">
+<!-- Abstract Handshake/Transaction Icon using Shapes -->
+<div class="absolute inset-0 border-2 border-primary/20 rounded-full animate-pulse"></div>
+<div class="relative z-10 text-cyan-industrial">
+<span class="material-icons text-8xl" style="font-size: 96px;">handshake</span>
+</div>
+<!-- Decorative Elements for "Industrial" look -->
+<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-industrial opacity-50"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-industrial opacity-50"></div>
+<img alt="Financial settlement illustration" class="hidden" data-alt="Abstract digital transaction or financial handshake visual" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-I-gsiPGKiPcj4eXTEazuur358Taou0prGCOCmliYmnK86iquLimnyEmvv5HBBSmpQ_07M7aBQv91R7HxD3usvXtyZQqqiltaU5DTmDKfzrf4DWAjyYS7kIayv2GC2PI6EpaQPbOYQD_wuLV1pGu81fZLnGANplER0DzcNPdFk6YPOgQzZUpfvFaILn0Jo7oZKobknOwEU0fH2MapBh_cosHebZ4o20IP1k8co38DkhyDYAf0lf-KBAVvU5rHwHfoI1t7botthe6X"/>
+</div>
+<!-- Content -->
+<h1 class="text-3xl font-bold text-slate-900 dark:text-text-main mb-4 tracking-tight">
+                Schulden einfach begleichen
+            </h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg max-w-md leading-relaxed">
+                Behalte den Überblick darüber, wer wem was schuldet, und begleiche Ausstände mit nur einem Klick.
+            </p>
+</div>
+<!-- Progress Indicator -->
+<div class="flex justify-center items-center gap-3 mb-8">
+<div class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(14,184,241,0.5)]"></div>
+</div>
+<!-- Navigation Footer -->
+<div class="px-10 py-8 bg-slate-50 dark:bg-black/40 flex items-center justify-between border-t border-slate-100 dark:border-white/5">
+<button class="px-8 py-3 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                Zurück
+            </button>
+<div class="flex items-center gap-4">
+<span class="text-xs uppercase tracking-widest text-slate-400 font-bold mr-4">Step 3 of 3</span>
+<button class="px-10 py-3 rounded-lg bg-primary text-white font-bold hover:bg-opacity-90 transition-all shadow-lg shadow-primary/20 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    Abschließen
+                </button>
+</div>
+</div>
+</div>
+<!-- Background Decoration Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-cyan-industrial/5 rounded-full blur-3xl"></div>
+<!-- Grid pattern overlay for industrial feel -->
+<div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#0eb8f1 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+</div>
+</body></html>

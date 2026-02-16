@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000", // Overriding for Pure Black request
+                        "surface-dark": "#1A1A1A",
+                        "neutral-slate": "#F8FAFC",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Glitch-like effect for the icon */
+        .glitch-container {
+            position: relative;
+        }
+        .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.5;
+        }
+        .glitch-offset-1 { transform: translate(-2px, 1px); color: rgba(19, 182, 236, 0.4); }
+        .glitch-offset-2 { transform: translate(2px, -1px); color: rgba(255, 255, 255, 0.2); }
+        
+        /* Subtle scanline effect for industrial feel */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-neutral-slate font-display flex items-center justify-center min-h-screen selection:bg-primary/30 overflow-hidden">
+<!-- Subtle background pattern for depth -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, #13b6ec 1px, transparent 0); background-size: 40px 40px;"></div>
+</div>
+<!-- Main Content Container -->
+<div class="relative z-10 w-full max-w-[480px] px-6">
+<!-- Offline Card -->
+<div class="bg-surface-dark border border-white/5 rounded-lg p-10 md:p-12 shadow-2xl flex flex-col items-center text-center">
+<!-- Icon Section with Glitch Effect -->
+<div class="mb-8 relative h-24 w-24 flex items-center justify-center">
+<div class="glitch-container">
+<!-- Base Icon -->
+<span class="material-icons text-primary text-7xl select-none">cloud_off</span>
+<!-- Glitch offsets -->
+<span class="material-icons text-7xl absolute top-0 left-0 glitch-offset-1 select-none">cloud_off</span>
+<span class="material-icons text-7xl absolute top-0 left-0 glitch-offset-2 select-none">cloud_off</span>
+</div>
+<!-- Connection Line Glitch -->
+<div class="absolute w-full h-0.5 bg-primary/20 top-1/2 left-0 -translate-y-1/2"></div>
+</div>
+<!-- Typography -->
+<div class="space-y-4 mb-10">
+<h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase">
+                    Keine Internetverbindung
+                </h1>
+<p class="text-white/60 text-sm md:text-base leading-relaxed max-w-sm mx-auto">
+                    Keine Sorge. Deine Änderungen werden lokal gespeichert und synchronisiert, sobald du wieder online bist.
+                </p>
+</div>
+<!-- Action Area -->
+<div class="w-full flex flex-col gap-3">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-[0.98] uppercase tracking-wider text-sm">
+                    Erneut versuchen
+                </button>
+<div class="flex items-center justify-center gap-2 mt-4">
+<div class="w-2 h-2 rounded-full bg-primary/40 animate-pulse"></div>
+<span class="text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium">System im lokalen Modus</span>
+</div>
+</div>
+</div>
+<!-- Footer / Technical Info -->
+<div class="mt-8 flex justify-between items-center px-2 text-white/20 text-[10px] uppercase tracking-widest font-semibold">
+<span>TidyUp Desktop v4.2.0</span>
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1">
+<span class="material-icons text-xs">storage</span>
+                    Lokale DB Aktiv
+                </span>
+<span class="flex items-center gap-1">
+<span class="material-icons text-xs">history</span>
+                    Sync Ausstehend
+                </span>
+</div>
+</div>
+</div>
+<!-- Scanline Overlay -->
+<div class="fixed inset-0 scanlines opacity-10 pointer-events-none"></div>
+<!-- Background Decorative Element (Map-like grid) -->
+<div class="fixed bottom-0 left-0 w-full h-64 opacity-5 pointer-events-none overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+<img alt="Technical schematic representation" class="w-full h-full object-cover grayscale invert" data-alt="Monochrome technical blueprint pattern background" data-location="Berlin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmxrGnBSkYHHRk4HtnFyXI-E-KUPCZmZ8wHqPziZhuoojGf0xbdAh5_nZI6tQD_Ir4D7gQ_XdTlu-PVMgiDlzvtOBgThDt7JcpgWqIpJeicVGBILkCEU2PCtkgeYq0N2lTecQhx4GaUllg2gsx4n6GdV0kg821wLwzb6iim3qDxcX5ApX66PzxFsV8Cb-qRpKLnxNIX7coe_BdudY2wticBjsl3Aiv0-yRmzaUziZQOv6-5leyRfvrqaGuQcBen0yjkrhs30471VXz"/>
+</div>
+</body></html>

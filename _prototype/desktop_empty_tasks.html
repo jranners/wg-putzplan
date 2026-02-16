@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000",
+                        "card-dark": "#1A1A1A",
+                        "neutral-dark": "#2d2d2d"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>TidyUp - Keine Aufgaben</title>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex overflow-hidden">
+<!-- Fixed Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-slate-200 dark:border-neutral-dark flex flex-col h-screen fixed top-0 left-0 z-50">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons-round text-white text-xl">cleaning_services</span>
+</div>
+<span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">TidyUp</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-card-dark rounded-lg transition-colors group" href="#">
+<span class="material-icons-round text-primary/70 group-hover:text-primary">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-icons-round">assignment</span>
+<span class="font-medium text-sm">Aufgaben</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-card-dark rounded-lg transition-colors group" href="#">
+<span class="material-icons-round text-primary/70 group-hover:text-primary">calendar_today</span>
+<span class="font-medium text-sm">Kalender</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-card-dark rounded-lg transition-colors group" href="#">
+<span class="material-icons-round text-primary/70 group-hover:text-primary">group</span>
+<span class="font-medium text-sm">WG-Mitglieder</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-neutral-dark">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-card-dark rounded-lg transition-colors group" href="#">
+<span class="material-icons-round text-primary/70 group-hover:text-primary">settings</span>
+<span class="font-medium text-sm">Einstellungen</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-3 py-2">
+<div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-neutral-dark overflow-hidden ring-1 ring-primary/30">
+<img class="w-full h-full object-cover" data-alt="User profile avatar of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgpsiqOQs6twe5BuwuWuMzCuH9imlHuOvqIlfZVwD-XMxbGsFM9isDxbZKHVTm2ZktJeQOqlCtGcz8uUER-LkhHrP1up_4hleV8w7yV2BGQH1mpQSP6o41zUBMuj_N7zPnTV6eNJpmvi7aTxhTZ_ydbNLgJ0Z_QBmfLYGDi_s-jcfDFo76sAcNWIzHfT-Nz-70A-yluREnHcFQXMySHZFH1n68dNfhcyUM31dVfcFh_XRFv8fvZOiAF7XkuvjT80VLViveUy9R0XQy"/>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-900 dark:text-white leading-none">Max M.</span>
+<span class="text-[10px] text-slate-500 dark:text-slate-500 mt-1 uppercase tracking-wider">WG Berlin-Mitte</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 flex items-center justify-center p-8 bg-background-light dark:bg-background-dark">
+<!-- Empty State Card -->
+<div class="max-w-md w-full bg-white dark:bg-card-dark rounded-lg shadow-2xl p-12 flex flex-col items-center text-center border border-slate-100 dark:border-white/5">
+<!-- Illustration Area -->
+<div class="relative mb-10 w-48 h-48 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl"></div>
+<!-- Industrial Coffee Cup / Relax Minimalist Icon -->
+<div class="relative">
+<div class="w-32 h-32 flex items-center justify-center">
+<svg class="w-24 h-24 fill-none stroke-primary stroke-[0.75]" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+<path class="stroke-primary/40" d="M6 1L6 4M10 1L10 4M14 1L14 4"></path>
+</svg>
+</div>
+<!-- Industrial Accent Lines -->
+<div class="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-primary/30 rounded-tr-lg"></div>
+<div class="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-primary/30 rounded-bl-lg"></div>
+</div>
+</div>
+<!-- Text Content -->
+<h1 class="text-3xl font-bold text-slate-900 dark:text-[#F8FAFC] tracking-tight mb-4">
+                Alles erledigt!
+            </h1>
+<p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed mb-10">
+                Herausragende Arbeit. Deine WG glänzt und alle Aufgaben sind erledigt.
+            </p>
+<!-- Action Button -->
+<button class="group relative inline-flex items-center justify-center px-8 py-3.5 font-bold text-background-dark transition-all duration-200 bg-primary rounded-lg hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(19,182,236,0.4)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary active:scale-95">
+<span class="material-icons-round mr-2 text-xl">add_circle_outline</span>
+                Aufgabe erstellen
+            </button>
+<!-- Status Indicators (Industrial detail) -->
+<div class="mt-12 flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 dark:text-slate-600">System Ready</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-slate-300 dark:bg-neutral-dark"></div>
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400 dark:text-slate-600">Queue Empty</span>
+</div>
+</div>
+</div>
+<!-- Decorative background elements -->
+<div class="fixed top-0 right-0 p-8 pointer-events-none opacity-20 dark:opacity-10">
+<div class="w-64 h-64 border border-primary/20 rounded-full flex items-center justify-center">
+<div class="w-48 h-48 border border-primary/20 rounded-full flex items-center justify-center">
+<div class="w-32 h-32 border border-primary/20 rounded-full"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Map context hint if needed by requirements (though not specifically for this screen) -->
+<div class="hidden" data-location="Berlin" style=""></div>
+</body></html>

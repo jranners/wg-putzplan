@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding Walkthrough - WG Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0eb8f1",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#000000",
+                        "card-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-dark text-slate-50 antialiased min-h-screen flex items-center justify-center p-6">
+<!-- Main Onboarding Card -->
+<main class="w-full max-w-lg bg-card-dark rounded-lg shadow-2xl overflow-hidden border border-white/5">
+<!-- Illustration/Icon Area -->
+<div class="relative h-64 flex items-center justify-center bg-gradient-to-b from-primary/10 to-transparent">
+<div class="relative">
+<!-- Abstract Industrial Cleaning Icon Composition -->
+<div class="w-32 h-32 rounded-xl border-4 border-primary flex items-center justify-center relative overflow-hidden">
+<span class="material-icons text-7xl text-primary">assignment</span>
+<div class="absolute -bottom-2 -right-2 bg-card-dark p-1 rounded-full">
+<span class="material-icons text-3xl text-primary">cleaning_services</span>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-primary/50"></div>
+<div class="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-primary/50"></div>
+</div>
+<!-- Progress Overlay (Top Right) -->
+<div class="absolute top-6 right-6 text-xs font-semibold tracking-widest text-primary/60 uppercase">
+                Schritt 01 / 03
+            </div>
+</div>
+<!-- Content Area -->
+<div class="px-10 pb-10 pt-4 text-center">
+<h1 class="text-3xl font-bold text-white mb-4">
+                Putzpläne einfach verwalten
+            </h1>
+<p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-sm mx-auto">
+                Verteile Aufgaben und behalte den Überblick über die Sauberkeit in deiner WG.
+            </p>
+<!-- Progress Indicators (Dots) -->
+<div class="flex justify-center items-center space-x-3 mb-12">
+<div class="w-8 h-1.5 rounded-full bg-primary transition-all duration-300"></div>
+<div class="w-2 h-1.5 rounded-full bg-white/20 transition-all duration-300"></div>
+<div class="w-2 h-1.5 rounded-full bg-white/20 transition-all duration-300"></div>
+</div>
+<!-- Navigation Actions -->
+<div class="flex items-center justify-between gap-4">
+<button class="flex-1 px-6 py-3.5 rounded-lg border border-primary/40 text-primary font-semibold hover:bg-primary/5 transition-colors duration-200">
+                    Überspringen
+                </button>
+<button class="flex-1 px-6 py-3.5 rounded-lg bg-primary text-black font-bold hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center gap-2 group">
+                    Weiter
+                    <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Background Decorative Elements (Pure Black context) -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]"></div>
+</div>
+<!-- Hidden image reference as requested for metadata, using abstract placeholder style -->
+<div class="hidden">
+<img alt="Onboarding visual" data-alt="High contrast industrial clipboard icon on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt9bjA6Xso7-89uXE8HFl5BHQRYtgNAvFRvujySzsaRmHe0nz8nCfOgvNu18u8nxvvmGiBN6m7XluBWHuFl2JLCHxG07oSVdHQqKTqYXh2eAZmwwintFguYA66HADp0C5302q81YFH9OeiIunAcN4cQnGVKw5SLzRpEERwMdmFmvsLdDr2jjCZU_nJfocxIG1KQf5kSqnzTipYyEc2adCu3YLYpSXmu9DXZR6C84Edr20q0Dl65-IXnF6MYRIb0nx_E1jiGDSg8zpk"/>
+</div>
+</body></html>

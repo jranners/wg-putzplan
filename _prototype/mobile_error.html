@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0fb8f0",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#000000", // Pure Black as requested
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-status-bar {
+            height: env(safe-area-inset-top, 44px);
+        }
+        .ios-bottom-inset {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark text-[#F8FAFC] font-display selection:bg-primary/30">
+<!-- Mobile Screen Wrapper -->
+<div class="flex flex-col min-h-screen max-w-md mx-auto relative overflow-hidden">
+<!-- iOS Status Bar Placeholder -->
+<div class="ios-status-bar w-full flex justify-between items-center px-6 pt-2">
+<span class="text-xs font-semibold">9:41</span>
+<div class="flex space-x-1.5 items-center">
+<span class="material-icons text-[14px]">signal_cellular_alt</span>
+<span class="material-icons text-[14px]">wifi</span>
+<span class="material-icons text-[14px]">battery_full</span>
+</div>
+</div>
+<!-- Main Content (Centered) -->
+<main class="flex-grow flex flex-col items-center justify-center px-8 text-center">
+<!-- Industrial Warning Icon -->
+<div class="relative mb-8">
+<div class="w-32 h-32 flex items-center justify-center border-2 border-primary/20 rounded-xl">
+<!-- Icon represented by a stylized machine/triangle -->
+<svg class="text-primary" fill="none" height="64" viewbox="0 0 24 24" width="64" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L1 21H23L12 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"></path>
+<path d="M12 9V14" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+<path d="M12 17H12.01" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Precision accents -->
+<div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-primary rounded-tl-sm"></div>
+<div class="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-primary rounded-tr-sm"></div>
+<div class="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-primary rounded-bl-sm"></div>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-primary rounded-br-sm"></div>
+</div>
+<!-- Error Message Stack -->
+<div class="space-y-4">
+<h1 class="text-2xl font-bold tracking-tight text-[#F8FAFC]">
+                    Ein Fehler ist aufgetreten
+                </h1>
+<p class="text-[#F8FAFC]/60 text-base leading-relaxed max-w-[280px] mx-auto">
+                    Ein unerwarteter Systemfehler ist aufgetreten. Bitte versuche es später noch einmal.
+                </p>
+</div>
+<!-- Action Button -->
+<div class="w-full mt-12">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-4 rounded-lg transition-colors active:scale-[0.98] min-h-[44px] flex items-center justify-center space-x-2">
+<span class="material-icons text-[20px]">refresh</span>
+<span>Neu laden</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="w-full bg-background-dark border-t border-white/5 ios-bottom-inset">
+<div class="flex justify-around items-center h-16 px-4">
+<a class="flex flex-col items-center justify-center space-y-1 text-white/40 hover:text-primary transition-colors min-h-[44px] min-w-[44px]" href="#">
+<span class="material-icons">grid_view</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center space-y-1 text-white/40 hover:text-primary transition-colors min-h-[44px] min-w-[44px]" href="#">
+<span class="material-icons">assignment</span>
+<span class="text-[10px] font-medium">Aufgaben</span>
+</a>
+<a class="flex flex-col items-center justify-center space-y-1 text-primary transition-colors min-h-[44px] min-w-[44px]" href="#">
+<span class="material-icons">report_problem</span>
+<span class="text-[10px] font-medium">Status</span>
+</a>
+<a class="flex flex-col items-center justify-center space-y-1 text-white/40 hover:text-primary transition-colors min-h-[44px] min-w-[44px]" href="#">
+<span class="material-icons">settings</span>
+<span class="text-[10px] font-medium">Setup</span>
+</a>
+</div>
+<!-- iOS Home Indicator Space -->
+<div class="h-1.5 w-32 bg-white/20 mx-auto mb-2 rounded-full"></div>
+</nav>
+<!-- Aesthetic Background Detail: Industrial Grid -->
+<div class="absolute inset-0 -z-10 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #0fb8f0 1px, transparent 0); background-size: 24px 24px;"></div>
+</div>
+<!-- Background Decoration Image (Hidden, for Compliance) -->
+<img class="hidden" data-alt="Dark industrial grid pattern with faint cyan dots" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPqXk9eCCh8kSx5SVrk1-m3HLjfAYjWrMDq5yTjWzvLGN3GXhFrTINemL6N9h7vCZnkT_hN_3VxNXDZQnfL_-yFTY_e0C9NqZ4-1UjxrSihWR37hVzR1zmrUK86QZP_axz8Jun74Mg0wObnc5qWl2ErXrSi-3PFbs8wnqNFog-ZbkXNBZnUG53H8TWTHsIkbWK5we6_oPYx8eHnaIB2YaTpuundS16NRfsg7Rj52nQ8bqfMLVuJZgY00J05uqAT1UJHxKAWhwp9aBI"/>
+</body></html>

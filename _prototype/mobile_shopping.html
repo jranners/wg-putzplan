@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13b6ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#000000",
+                        "card-dark": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: contain;
+        }
+        .ios-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .custom-checkbox:checked + label .checkbox-box {
+            background-color: #13b6ec;
+            border-color: #13b6ec;
+        }
+        .custom-checkbox:checked + label .checkbox-icon {
+            opacity: 1;
+        }
+        .custom-checkbox:checked ~ .item-content .item-title {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .custom-checkbox:checked ~ .item-content .item-quantity {
+            opacity: 0.3;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark text-white font-display antialiased select-none">
+<!-- Header Section -->
+<header class="sticky top-0 z-30 bg-background-dark/80 backdrop-blur-md px-5 pt-12 pb-4">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-2xl font-bold tracking-tight">TidyUp</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-card-dark text-primary">
+<span class="material-icons">settings</span>
+</button>
+</div>
+<!-- Segmented Control -->
+<div class="bg-card-dark p-1 rounded-lg flex relative">
+<button class="flex-1 py-2 text-sm font-semibold rounded-md bg-primary text-background-dark z-10 transition-all duration-200">
+                Gemeinsam
+            </button>
+<button class="flex-1 py-2 text-sm font-semibold text-zinc-400 z-10">
+                Persönlich
+            </button>
+</div>
+</header>
+<!-- Main Content: Shopping List -->
+<main class="px-5 pb-32 space-y-3">
+<!-- Shopping Item Card -->
+<div class="relative overflow-hidden rounded-lg group">
+<!-- Swipe to Delete Background Action -->
+<div class="absolute inset-0 bg-red-600 flex items-center justify-end px-6 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-icons text-white">delete</span>
+</div>
+<div class="relative bg-card-dark p-4 flex items-center min-h-[72px] translate-x-0 transition-transform">
+<input checked="" class="hidden custom-checkbox" id="item1" type="checkbox"/>
+<label class="mr-4 flex-shrink-0 cursor-pointer" for="item1">
+<div class="checkbox-box w-7 h-7 border-2 border-primary rounded flex items-center justify-center transition-colors">
+<span class="material-icons text-background-dark text-lg opacity-0 checkbox-icon">check</span>
+</div>
+</label>
+<div class="item-content flex flex-col">
+<span class="item-title text-lg font-medium transition-all">Bio-Vollmilch</span>
+<span class="item-quantity text-xs text-primary uppercase tracking-wider font-bold">Menge: 2</span>
+</div>
+</div>
+</div>
+<!-- Shopping Item Card -->
+<div class="relative overflow-hidden rounded-lg">
+<div class="bg-card-dark p-4 flex items-center min-h-[72px]">
+<input class="hidden custom-checkbox" id="item2" type="checkbox"/>
+<label class="mr-4 flex-shrink-0 cursor-pointer" for="item2">
+<div class="checkbox-box w-7 h-7 border-2 border-primary rounded flex items-center justify-center transition-colors">
+<span class="material-icons text-background-dark text-lg opacity-0 checkbox-icon">check</span>
+</div>
+</label>
+<div class="item-content flex flex-col">
+<span class="item-title text-lg font-medium transition-all">Vollkornbrot</span>
+<span class="item-quantity text-xs text-primary uppercase tracking-wider font-bold">Menge: 1</span>
+</div>
+</div>
+</div>
+<!-- Shopping Item Card -->
+<div class="relative overflow-hidden rounded-lg">
+<div class="bg-card-dark p-4 flex items-center min-h-[72px]">
+<input class="hidden custom-checkbox" id="item3" type="checkbox"/>
+<label class="mr-4 flex-shrink-0 cursor-pointer" for="item3">
+<div class="checkbox-box w-7 h-7 border-2 border-primary rounded flex items-center justify-center transition-colors">
+<span class="material-icons text-background-dark text-lg opacity-0 checkbox-icon">check</span>
+</div>
+</label>
+<div class="item-content flex flex-col">
+<span class="item-title text-lg font-medium transition-all">Avocados (reif)</span>
+<span class="item-quantity text-xs text-primary uppercase tracking-wider font-bold">Menge: 3</span>
+</div>
+</div>
+</div>
+<!-- Shopping Item Card -->
+<div class="relative overflow-hidden rounded-lg">
+<div class="bg-card-dark p-4 flex items-center min-h-[72px]">
+<input class="hidden custom-checkbox" id="item4" type="checkbox"/>
+<label class="mr-4 flex-shrink-0 cursor-pointer" for="item4">
+<div class="checkbox-box w-7 h-7 border-2 border-primary rounded flex items-center justify-center transition-colors">
+<span class="material-icons text-background-dark text-lg opacity-0 checkbox-icon">check</span>
+</div>
+</label>
+<div class="item-content flex flex-col">
+<span class="item-title text-lg font-medium transition-all">Kaffeebohnen 500g</span>
+<span class="item-quantity text-xs text-primary uppercase tracking-wider font-bold">Menge: 1</span>
+</div>
+</div>
+</div>
+<!-- Shopping Item Card -->
+<div class="relative overflow-hidden rounded-lg">
+<div class="bg-card-dark p-4 flex items-center min-h-[72px]">
+<input class="hidden custom-checkbox" id="item5" type="checkbox"/>
+<label class="mr-4 flex-shrink-0 cursor-pointer" for="item5">
+<div class="checkbox-box w-7 h-7 border-2 border-primary rounded flex items-center justify-center transition-colors">
+<span class="material-icons text-background-dark text-lg opacity-0 checkbox-icon">check</span>
+</div>
+</label>
+<div class="item-content flex flex-col">
+<span class="item-title text-lg font-medium transition-all">Mineralwasser Still</span>
+<span class="item-quantity text-xs text-primary uppercase tracking-wider font-bold">Menge: 6</span>
+</div>
+</div>
+</div>
+<!-- Shopping Item Card -->
+<div class="relative overflow-hidden rounded-lg">
+<div class="bg-card-dark p-4 flex items-center min-h-[72px]">
+<input class="hidden custom-checkbox" id="item6" type="checkbox"/>
+<label class="mr-4 flex-shrink-0 cursor-pointer" for="item6">
+<div class="checkbox-box w-7 h-7 border-2 border-primary rounded flex items-center justify-center transition-colors">
+<span class="material-icons text-background-dark text-lg opacity-0 checkbox-icon">check</span>
+</div>
+</label>
+<div class="item-content flex flex-col">
+<span class="item-title text-lg font-medium transition-all">Bio Eier (10er)</span>
+<span class="item-quantity text-xs text-primary uppercase tracking-wider font-bold">Menge: 1</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-background-dark rounded-full shadow-lg shadow-primary/20 flex items-center justify-center z-40 active:scale-95 transition-transform">
+<span class="material-icons text-3xl font-bold">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-background-dark border-t border-white/5 ios-safe-bottom z-50">
+<div class="flex justify-around items-center h-16">
+<a class="flex flex-col items-center justify-center text-primary" href="#">
+<span class="material-icons">shopping_bag</span>
+<span class="text-[10px] font-medium mt-0.5">Liste</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500" href="#">
+<span class="material-icons">history</span>
+<span class="text-[10px] font-medium mt-0.5">Verlauf</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500" href="#">
+<span class="material-icons">inventory_2</span>
+<span class="text-[10px] font-medium mt-0.5">Vorratskammer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500" href="#">
+<span class="material-icons">group</span>
+<span class="text-[10px] font-medium mt-0.5">Gruppe</span>
+</a>
+</div>
+</nav>
+<!-- Background Pattern Subtle Overlay -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[-1]" data-alt="Subtle cyan micro-dot pattern on black background" style="background-image: radial-gradient(#13b6ec 1px, transparent 1px); background-size: 20px 20px;"></div>
+</body></html>
