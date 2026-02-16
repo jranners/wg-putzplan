@@ -61,13 +61,13 @@
 |-------|-----------|
 | **Framework** | [Next.js 14](https://nextjs.org/) (App Router, Server Actions) |
 | **Language** | TypeScript 5 |
-| **Styling** | Tailwind CSS 3.4 with custom dark theme |
-| **UI Components** | Radix UI (Dialog, Select, Label) + shadcn/ui primitives |
+| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) with pure black theme |
+| **Database** | [Prisma ORM](https://www.prisma.io/) + [SQLite](https://www.sqlite.org/) |
+| **UI Components** | Radix UI + Framer Motion |
 | **Icons** | Lucide React |
 | **Charts** | Recharts 3 |
 | **Date Handling** | date-fns |
 | **Testing** | Vitest + Testing Library |
-| **Data** | JSON file-based storage (`data/db.json`) |
 
 ---
 
@@ -92,6 +92,14 @@ npm install
 npm run dev
 ```
 
+### Database Management
+
+| Action | Command |
+|--------|---------|
+| **Setup DB** | `npx prisma db push` |
+| **Seed Data** | `npx prisma db seed` |
+| **View UI** | `npx prisma studio` |
+
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Available Scripts
@@ -111,31 +119,26 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```
 wg-putzplan/
-├── data/
-│   └── db.json                  # JSON database (users, tasks, expenses, etc.)
+├── prisma/
+│   ├── schema.prisma            # Prisma schema (models, relations)
+│   ├── dev.db                   # SQLite database file (ignored)
+│   └── seed.ts                  # Seed script for initial data
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx             # Dashboard
-│   │   ├── actions.ts           # Server actions (CRUD, debt calc, WG mgmt)
-│   │   ├── expenses/            # Finance & debt tracking page
-│   │   ├── tasks/               # Task management page
-│   │   ├── shopping/            # Shopping list page
-│   │   ├── statistics/          # Analytics & charts page
-│   │   └── settings/            # Settings & WG management page
+│   │   ├── actions.ts           # Server actions (Prisma queries, debt calc)
+│   │   └── ...                  # Feature pages
 │   ├── components/
-│   │   ├── dashboard/           # StatCard, TaskCard, NewTaskModal, etc.
-│   │   ├── expenses/            # DebtList, ExpenseList, AddExpenseForm, SettleUpModal
-│   │   ├── tasks/               # DetailedTaskList, EditTaskForm, TaskSchedule
-│   │   ├── shopping/            # ShoppingComponents
-│   │   ├── statistics/          # StatisticsCharts, TaskPerformance
-│   │   ├── settings/            # WGMemberList
-│   │   ├── layout/              # Sidebar, MobileNav, Header
-│   │   └── ui/                  # Base UI components (Button, Dialog, Input, etc.)
+│   │   ├── dashboard/           # Dashboard specific components
+│   │   ├── expenses/            # Finance & debt components
+│   │   ├── tasks/               # Task management components
+│   │   └── ...                  # Shared layout & UI components
 │   ├── lib/
-│   │   ├── utils.ts             # Utility functions
-│   │   └── debt.ts              # Debt calculation engine
+│   │   ├── prisma.ts            # Prisma client singleton
+│   │   ├── debt.test.ts         # Multi-user debt logic tests
+│   │   └── utils.ts             # Utility functions
 │   └── types/
-│       └── index.ts             # TypeScript interfaces (User, Task, Expense, WG, etc.)
+│       └── index.ts             # Re-exported Prisma types & utils
 ├── DESIGN.md                    # Design system documentation
 ├── tailwind.config.ts
 ├── vitest.config.ts
