@@ -2,72 +2,85 @@
   <img src="docs/screenshots/dashboard.png" alt="TidyUp Dashboard" width="100%" />
 </p>
 
-<h1 align="center">🏠 TidyUp · WG-Manager</h1>
+# 🏠 TidyUp · WG-Manager
 
 <p align="center">
-  <strong>A modern, full-featured shared flat management app.</strong><br/>
-  Task scheduling · Expense splitting · Shopping lists · Statistics · WG management
+  <strong>The definitive shared flat management OS.</strong><br/>
+  Built with "Industrial Precision" design principles for maximum efficiency and clarity.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-18-blue?logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss" alt="Tailwind" />
-  <img src="https://img.shields.io/badge/License-ISC-green" alt="License" />
+  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" alt="Next.js 14" /></a>
+  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-18-blue?logo=react" alt="React 18" /></a>
+  <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript 5" /></a>
+  <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss" alt="Tailwind CSS" /></a>
+  <a href="https://www.prisma.io"><img src="https://img.shields.io/badge/Prisma-ORM-1B222D?logo=prisma" alt="Prisma" /></a>
+  <a href="https://opensource.org/licenses/ISC"><img src="https://img.shields.io/badge/License-ISC-green" alt="License" /></a>
 </p>
+
+---
+
+## ⚡ Overview
+
+**TidyUp** is a modern, full-featured application designed to streamline the complexities of shared living.  It replaces chaotic WhatsApp groups and excel sheets with a unified, "Industrial Precision" interface for managing cleaning schedules, shared finances, shopping lists, and house rules.
+
+Key capabilities include:
+- **Intelligent Task Scheduling**: Automatic rotation of cleaning duties based on customizable intervals.
+- **Fair Finance Tracking**: Peer-to-peer debt calculation that simplifies "who owes who" into minimal transactions.
+- **Real-time Synchronization**: Shared shopping lists and activity feeds that keep everyone in the loop.
 
 ---
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| **📊 Dashboard** | At-a-glance overview with upcoming tasks, finances, weekly schedule, and activity feed |
-| **💰 Finances** | Peer-to-peer expense tracking with automatic debt calculation and settle-up |
-| **📋 Task Management** | Cleaning tasks with priorities, due dates, and automatic rotation (daily/weekly/monthly) |
-| **🛒 Shopping List** | Shared shopping list with real-time item tracking |
-| **📈 Statistics** | Visual analytics with charts showing contribution, spending trends, and performance |
-| **⚙️ WG Settings** | Member management, admin controls, and invitation code generation |
+### 📊 **Command Dashboard**
+Your central hub for WG life. Get an at-a-glance overview of:
+- **Upcoming Tasks**: What needs to be done today/this week.
+- **Financial Status**: Your current balance (owed vs. owing).
+- **Recent Activity**: A live feed of completed tasks and purchases.
+
+### 💰 **Precision Finances**
+Forgot who paid for pizza? TidyUp handles it.
+- **Expense Splitting**: Split costs equally or by custom shares.
+- **Smart Settlements**: The system calculates the simplest set of payments to settle all debts.
+- **History**: Full audit trail of all transactions.
+
+### 📋 **Task Automation**
+Never argue about the cleaning plan again.
+- **Rotation Logic**:  Tasks rotate automatically (Daily, Weekly, Bi-weekly, Monthly).
+- **Gamification**: Track completion stats and see who is carrying the team.
+- **Reminders**: Visual cues for overdue tasks in the "Industrial Red" alert state.
+
+### 🛒 **Live Shopping List**
+collaborative list that syncs instantly.
+- **Add/Check-off**: Fast interaction for speedy supermarket runs.
+- **Categorization**: Organize items for efficient shopping.
+
+### 📈 **Analytics**
+- **Contribution Charts**: Visualize who does the most chores.
+- **Spending Trends**: Track household expenses over time.
 
 ---
 
-## 📸 Screenshots
+## 🏗️ Technology Stack
 
-<table>
-  <tr>
-    <td><strong>Expenses & Debt Tracking</strong></td>
-    <td><strong>Settings & WG Management</strong></td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/expenses.png" alt="Expenses" width="100%" /></td>
-    <td><img src="docs/screenshots/settings.png" alt="Settings" width="100%" /></td>
-  </tr>
-</table>
-
-<details>
-<summary><strong>📱 Mobile View</strong></summary>
-<br/>
-<p align="center">
-  <img src="docs/screenshots/mobile.png" alt="Mobile Dashboard" width="390" />
-</p>
-</details>
+| Layer | Technology | Description |
+|-------|-----------|-------------|
+| **Core** | [Next.js 14](https://nextjs.org/) | App Router, Server Actions, React Server Components |
+| **Language** | TypeScript 5 | Strict type safety across the entire stack |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | "Industrial Precision" design system with pure black theme |
+| **Database** | SQLite + [Prisma](https://www.prisma.io/) | Type-safe ORM with automated migrations |
+| **UI/UX** | Radix UI + Framer Motion | Accessible primitives and fluid animations |
+| **Testing** | Vitest | Unit and integration testing |
 
 ---
 
-## 🏗️ Tech Stack
+## 🧠 Development & Agentic Workflow
 
-| Layer | Technology |
-|-------|-----------|
-| **Framework** | [Next.js 14](https://nextjs.org/) (App Router, Server Actions) |
-| **Language** | TypeScript 5 |
-| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) with pure black theme |
-| **Database** | [Prisma ORM](https://www.prisma.io/) + [SQLite](https://www.sqlite.org/) |
-| **UI Components** | Radix UI + Framer Motion |
-| **Icons** | Lucide React |
-| **Charts** | Recharts 3 |
-| **Date Handling** | date-fns |
-| **Testing** | Vitest + Testing Library |
+This project was built using an **Autonomous Agentic Workflow** known as **Loki Mode**. This involves a high-degree of AI collaboration where the AI operates as a senior engineer/architect.
+
+- **`.loki/` Directory**: Contains the "brain" of the agentic session (working memory, context, task queues).
+- **Design Features**: The application implements a specific "Industrial Precision" aesthetic defined by the AI to match the user's "Cyberpunk/Modern" preference.
 
 ---
 
@@ -75,110 +88,79 @@
 
 ### Prerequisites
 
-- **Node.js** ≥ 18
+- **Node.js** ≥ 18 (LTS recommended)
 - **npm** ≥ 9
 
 ### Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/jranners/wg-putzplan.git
-cd wg-putzplan
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jranners/wg-putzplan.git
+   cd wg-putzplan
+   ```
 
-# Install dependencies
-npm install
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Start the development server
-npm run dev
-```
+3. **Initialize the Database**
+   ```bash
+   # Push schema to SQLite database (creates dev.db)
+   npx prisma db push
 
-### Database Management
+   # Seed the database with initial demo data
+   npx prisma db seed
+   ```
 
-| Action | Command |
-|--------|---------|
-| **Setup DB** | `npx prisma db push` |
-| **Seed Data** | `npx prisma db seed` |
-| **View UI** | `npx prisma studio` |
+4. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+   Visit [http://localhost:3000](http://localhost:3000) to verify the installation.
 
-### Available Scripts
+### Useful Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Create production build |
-| `npm run start` | Start production server |
-| `npm run lint` | Lint the codebase |
-| `npm run test` | Run unit tests |
-| `npm run test:watch` | Run tests in watch mode |
+| Command | Action |
+|---------|--------|
+| `npm run dev` | Starts local dev server with hot-reload |
+| `npm run build` | Builds the application for production |
+| `npm run start` | Starts the production build |
+| `npm run type-check` | Verifies TypeScript types |
+| `npm run lint` | Runs ESLint |
+| `npx prisma studio` | Opens a GUI to inspect the database |
 
 ---
 
-## 📁 Project Structure
+## 📸 Gallery
 
-```
-wg-putzplan/
-├── prisma/
-│   ├── schema.prisma            # Prisma schema (models, relations)
-│   ├── dev.db                   # SQLite database file (ignored)
-│   └── seed.ts                  # Seed script for initial data
-├── src/
-│   ├── app/
-│   │   ├── page.tsx             # Dashboard
-│   │   ├── actions.ts           # Server actions (Prisma queries, debt calc)
-│   │   └── ...                  # Feature pages
-│   ├── components/
-│   │   ├── dashboard/           # Dashboard specific components
-│   │   ├── expenses/            # Finance & debt components
-│   │   ├── tasks/               # Task management components
-│   │   └── ...                  # Shared layout & UI components
-│   ├── lib/
-│   │   ├── prisma.ts            # Prisma client singleton
-│   │   ├── debt.test.ts         # Multi-user debt logic tests
-│   │   └── utils.ts             # Utility functions
-│   └── types/
-│       └── index.ts             # Re-exported Prisma types & utils
-├── DESIGN.md                    # Design system documentation
-├── tailwind.config.ts
-├── vitest.config.ts
-└── package.json
-```
+<table>
+  <tr>
+    <td align="center"><strong>💸 Expenses & Debt</strong><br/>Track every cent with precision.</td>
+    <td align="center"><strong>⚙️ Admin & Settings</strong><br/>Manage members and rules.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/expenses.png" alt="Expenses Interface" width="100%" /></td>
+    <td><img src="docs/screenshots/settings.png" alt="Settings Interface" width="100%" /></td>
+  </tr>
+</table>
 
 ---
 
 ## 🎨 Design System
 
-The app follows an **Industrial Precision** dark theme with the following key tokens:
+The app follows a strict **"Industrial Precision"** theme:
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| **Background** | `#000000` | App background |
-| **Surface** | `#1A1A1A` | Cards and panels |
-| **Primary Accent** | `#13B6EC` | Actions, active states, highlights |
-| **Success** | `#10B981` | Positive balances, completed tasks |
-| **Error** | `#EF4444` | Debts, overdue items |
-| **Font** | Inter | All UI text |
+- **Surface**: Pure Black (`#000000`) & Deep Gray (`#1A1A1A`)
+- **Accent**: Signal Cyan (`#13B6EC`) for primary actions
+- **Feedback**:  Emerald (`#10B981`) for success, Crimson (`#EF4444`) for critical alerts
+- **Typography**: `Inter` for UI, `JetBrains Mono` for data and numbers
 
-See [DESIGN.md](DESIGN.md) for the full design system specification.
-
----
-
-## 🔑 Key Concepts
-
-### Peer-to-Peer Debt Calculation
-Expenses are split equally among WG members and debts are calculated as net balances between each pair of users. Settlements are tracked separately from expenses to ensure accurate accounting.
-
-### Task Rotation
-Tasks can be configured with automatic rotation intervals. The system cycles through WG members based on the configured pattern (daily, weekly, biweekly, monthly).
-
-### WG Management
-Admins can manage their WG through the settings page:
-- **Kick members** (two-click confirmation)
-- **Generate invitation codes** (format: `WG_ID-XXXXXX`, 7-day expiry)
+See [DESIGN.md](./DESIGN.md) for the complete design specification.
 
 ---
 
 ## 📄 License
 
-ISC
+This project is licensed under the **ISC License**.
