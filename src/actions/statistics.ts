@@ -1,6 +1,7 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
+import { db, users, tasks } from '@/lib/db'
+import { eq, and, isNotNull } from 'drizzle-orm'
 
 export interface CleaningStatistic {
     name: string
@@ -16,9 +17,9 @@ export interface TaskPerformanceMetric {
 }
 
 export async function getCleaningStatistics() {
-    const [users, allTasks] = await Promise.all([
-        prisma.user.findMany(),
-        prisma.task.findMany(),
+    const [dbUsers, allTasks] = await Promise.all([
+        db.query.users.findMany(),
+        db.query.tasks.findMany(),
     ]);
 
     const totalTasks = allTasks.length;
@@ -26,10 +27,11 @@ export async function getCleaningStatistics() {
     const colors = ['#13B6EC', '#94A3B8', '#475569', '#334155'];
 
     // Contribution: count completed tasks per user (or unassigned)
-    const contributionData: CleaningStatistic[] = users.map((user, i) => {
+    const contributionData: CleaningStatistic[] = dbUsers.map((user, i) => {
         const userTasks = doneTasks.filter(t => t.assigneeId === user.id).length;
+
         return {
-            name: user.name,
+            name: user.name || "Unbekannt",
             value: totalTasks > 0 ? Math.round((userTasks / Math.max(doneTasks.length, 1)) * 100) : 0,
             color: colors[i % colors.length],
         };
@@ -37,10 +39,10 @@ export async function getCleaningStatistics() {
 
     // If no tasks have assignees, show even split
     const hasAssigned = contributionData.some(c => c.value > 0);
-    if (!hasAssigned && users.length > 0) {
-        const even = Math.round(100 / users.length);
+    if (!hasAssigned && dbUsers.length > 0) {
+        const even = Math.round(100 / dbUsers.length);
         contributionData.forEach((c, i) => {
-            c.value = i === 0 ? 100 - even * (users.length - 1) : even;
+            c.value = i === 0 ? 100 - even * (dbUsers.length - 1) : even;
         });
     }
 

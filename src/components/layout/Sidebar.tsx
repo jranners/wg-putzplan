@@ -18,9 +18,10 @@ const navigation = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
     { name: "Finanzen", href: "/expenses", icon: Wallet },
     { name: "Aufgaben", href: "/tasks", icon: ClipboardList },
-    { name: "Zeitplan", href: "/schedule", icon: CalendarDays },
+    { name: "Zeitplan", href: "/zeitplan", icon: CalendarDays },
     { name: "Einkaufen", href: "/shopping", icon: ShoppingCart },
     { name: "Statistik", href: "/statistics", icon: PieChart },
+    { name: "Management", href: "/management", icon: Settings },
 ];
 
 interface SidebarProps {
@@ -85,7 +86,7 @@ export function Sidebar({ className }: SidebarProps) {
                                 : "text-white/30 hover:bg-white/10 hover:text-white"
                         )}
                     >
-                        <Settings className="h-4 w-4" />
+                        <PieChart className="h-4 w-4" />
                     </Link>
                 </div>
             </div>

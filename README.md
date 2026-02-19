@@ -1,166 +1,117 @@
-<p align="center">
-  <img src="docs/screenshots/dashboard.png" alt="TidyUp Dashboard" width="100%" />
-</p>
+# 🏠 TidyUp · The Intelligent WG-Manager
 
-# 🏠 TidyUp · WG-Manager
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org)
+[![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-C5F74F?logo=drizzle)](https://orm.drizzle.team/)
+[![License](https://img.shields.io/badge/License-ISC-green)](https://opensource.org/licenses/ISC)
 
-<p align="center">
-  <strong>The definitive shared flat management OS.</strong><br/>
-  Built with "Industrial Precision" design principles for maximum efficiency and clarity.
-</p>
-
-<p align="center">
-  <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-14-black?logo=next.js" alt="Next.js 14" /></a>
-  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-18-blue?logo=react" alt="React 18" /></a>
-  <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript" alt="TypeScript 5" /></a>
-  <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss" alt="Tailwind CSS" /></a>
-  <a href="https://www.prisma.io"><img src="https://img.shields.io/badge/Prisma-ORM-1B222D?logo=prisma" alt="Prisma" /></a>
-  <a href="https://opensource.org/licenses/ISC"><img src="https://img.shields.io/badge/License-ISC-green" alt="License" /></a>
-</p>
+**TidyUp** is a premium shared-flat (WG) management platform built with "Industrial Precision" design principles. It streamlines household logistics, ensuring fair task distribution, transparent financial tracking, and seamless group coordination.
 
 ---
 
-## ⚡ Overview
+## ✨ Core Features
 
-**TidyUp** is a modern, full-featured application designed to streamline the complexities of shared living.  It replaces chaotic WhatsApp groups and excel sheets with a unified, "Industrial Precision" interface for managing cleaning schedules, shared finances, shopping lists, and house rules.
+### 📊 Precision Dashboard
+A centralized command center for your household.
+- **Task Lifecycle**: Real-time tracking of upcoming and overdue cleaning duties.
+- **Financial Status**: Instant overview of net balances across the flat.
+- **Activity Insight**: A unified feed of all household updates and expenses.
 
-Key capabilities include:
-- **Intelligent Task Scheduling**: Automatic rotation of cleaning duties based on customizable intervals.
-- **Fair Finance Tracking**: Peer-to-peer debt calculation that simplifies "who owes who" into minimal transactions.
-- **Real-time Synchronization**: Shared shopping lists and activity feeds that keep everyone in the loop.
+### 💰 Automated Finances
+Eliminate the complexity of shared expenses.
+- **Smart Settlements**: Advanced algorithms calculate the minimal number of transactions required to settle all debts.
+- **PayPal Integration**: Integrated "Log in with PayPal" for frictionless peer-to-peer transfers.
+- **Audit-Ready History**: Transparent logging of every purchase and settlement.
 
----
+### 📋 Intelligent Scheduling
+Fairness through automation.
+- **Dynamic Rotations**: Flexible scheduling (Daily, Weekly, Monthly) with automated user rotation.
+- **Performance Analytics**: Gamified contribution tracking to visualize household effort over time.
+- **Overdue Alerts**: Visual priority systems to ensure no task is forgotten.
 
-## ✨ Features
-
-### 📊 **Command Dashboard**
-Your central hub for WG life. Get an at-a-glance overview of:
-- **Upcoming Tasks**: What needs to be done today/this week.
-- **Financial Status**: Your current balance (owed vs. owing).
-- **Recent Activity**: A live feed of completed tasks and purchases.
-
-### 💰 **Precision Finances**
-Forgot who paid for pizza? TidyUp handles it.
-- **Expense Splitting**: Split costs equally or by custom shares.
-- **Smart Settlements**: The system calculates the simplest set of payments to settle all debts.
-- **History**: Full audit trail of all transactions.
-
-### 📋 **Task Automation**
-Never argue about the cleaning plan again.
-- **Rotation Logic**:  Tasks rotate automatically (Daily, Weekly, Bi-weekly, Monthly).
-- **Gamification**: Track completion stats and see who is carrying the team.
-- **Reminders**: Visual cues for overdue tasks in the "Industrial Red" alert state.
-
-### 🛒 **Live Shopping List**
-collaborative list that syncs instantly.
-- **Add/Check-off**: Fast interaction for speedy supermarket runs.
-- **Categorization**: Organize items for efficient shopping.
-
-### 📈 **Analytics**
-- **Contribution Charts**: Visualize who does the most chores.
-- **Spending Trends**: Track household expenses over time.
+### 🛒 Synchronized Shopping
+Real-time collaborative lists.
+- **Instant Updates**: Shared lists that sync instantly across all flatmate devices.
+- **Categories**: Optimized for efficient supermarket navigation.
 
 ---
 
 ## 🏗️ Technology Stack
 
-| Layer | Technology | Description |
-|-------|-----------|-------------|
-| **Core** | [Next.js 14](https://nextjs.org/) | App Router, Server Actions, React Server Components |
-| **Language** | TypeScript 5 | Strict type safety across the entire stack |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | "Industrial Precision" design system with pure black theme |
-| **Database** | SQLite + [Prisma](https://www.prisma.io/) | Type-safe ORM with automated migrations |
-| **UI/UX** | Radix UI + Framer Motion | Accessible primitives and fluid animations |
-| **Testing** | Vitest | Unit and integration testing |
+| Layer | Technology |
+|---|---|
+| **Framework** | [Next.js 15 (App Router)](https://nextjs.org/) |
+| **Language** | [TypeScript 5](https://www.typescriptlang.org/) |
+| **Logic** | [React 19 Server Components/Actions](https://react.dev/) |
+| **Database** | Postgres with [Drizzle ORM](https://orm.drizzle.team/) |
+| **Auth** | [NextAuth.js](https://next-auth.js.org/) |
+| **Styling** | Vanilla CSS (Modular & Performance-tuned) |
+| **Animation** | [Framer Motion](https://www.framer.com/motion/) |
+| **Testing** | [Vitest](https://vitest.dev/) |
 
 ---
 
-## 🧠 Development & Agentic Workflow
+## 📂 Architecture Overview
 
-This project was built using an **Autonomous Agentic Workflow** known as **Loki Mode**. This involves a high-degree of AI collaboration where the AI operates as a senior engineer/architect.
-
-- **`.loki/` Directory**: Contains the "brain" of the agentic session (working memory, context, task queues).
-- **Design Features**: The application implements a specific "Industrial Precision" aesthetic defined by the AI to match the user's "Cyberpunk/Modern" preference.
+```text
+├── src/
+│   ├── app/          # Next.js App Router (Pages, API, Actions)
+│   ├── components/   # UI Components (Atomic Design approach)
+│   ├── lib/          # Core Logic (Database, Auth, Debt Engine)
+│   ├── types/        # TypeScript Interfaces
+│   └── actions/      # Server Actions
+├── public/           # Static Assets
+├── docs/             # Documentation & Screenshots
+└── drizzle.config.ts # Database Configuration
+```
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Local Development
 
 ### Prerequisites
+- Node.js (Latest LTS)
+- PostgreSQL Instance
 
-- **Node.js** ≥ 18 (LTS recommended)
-- **npm** ≥ 9
+### Setup
 
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/jranners/wg-putzplan.git
-   cd wg-putzplan
-   ```
-
-2. **Install dependencies**
+1. **Clone & Install Dependencies**
    ```bash
    npm install
    ```
 
-3. **Initialize the Database**
-   ```bash
-   # Push schema to SQLite database (creates dev.db)
-   npx prisma db push
-
-   # Seed the database with initial demo data
-   npx prisma db seed
+2. **Environment Configuration**
+   Create a `.env` file in the root:
+   ```env
+   DATABASE_URL="postgresql://user:password@localhost:5432/wg_putzplan"
+   NEXTAUTH_URL="http://localhost:3000"
+   AUTH_SECRET="your-32-char-random-string"
+   
+   # PayPal Integration (Optional)
+   PAYPAL_CLIENT_ID="your-id"
+   PAYPAL_CLIENT_SECRET="your-secret"
    ```
 
-4. **Start Development Server**
+3. **Database Migration**
+   ```bash
+   npx drizzle-kit push
+   ```
+
+4. **Launch Application**
    ```bash
    npm run dev
    ```
 
-   Visit [http://localhost:3000](http://localhost:3000) to verify the installation.
-
-### Useful Scripts
-
-| Command | Action |
-|---------|--------|
-| `npm run dev` | Starts local dev server with hot-reload |
-| `npm run build` | Builds the application for production |
-| `npm run start` | Starts the production build |
-| `npm run type-check` | Verifies TypeScript types |
-| `npm run lint` | Runs ESLint |
-| `npx prisma studio` | Opens a GUI to inspect the database |
-
 ---
 
-## 📸 Gallery
-
-<table>
-  <tr>
-    <td align="center"><strong>💸 Expenses & Debt</strong><br/>Track every cent with precision.</td>
-    <td align="center"><strong>⚙️ Admin & Settings</strong><br/>Manage members and rules.</td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/expenses.png" alt="Expenses Interface" width="100%" /></td>
-    <td><img src="docs/screenshots/settings.png" alt="Settings Interface" width="100%" /></td>
-  </tr>
-</table>
-
----
-
-## 🎨 Design System
-
-The app follows a strict **"Industrial Precision"** theme:
-
-- **Surface**: Pure Black (`#000000`) & Deep Gray (`#1A1A1A`)
-- **Accent**: Signal Cyan (`#13B6EC`) for primary actions
-- **Feedback**:  Emerald (`#10B981`) for success, Crimson (`#EF4444`) for critical alerts
-- **Typography**: `Inter` for UI, `JetBrains Mono` for data and numbers
-
-See [DESIGN.md](./DESIGN.md) for the complete design specification.
+## 💳 Payment Flow
+TidyUp uses integrated PayPal links. When an expense is recorded:
+1. The system calculates peer-to-peer debts.
+2. Debtors are presented with a "Pay with PayPal" option.
+3. Users are redirected to the creditor's `paypal.me` link with the pre-filled amount.
 
 ---
 
 ## 📄 License
-
-This project is licensed under the **ISC License**.
+This project is licensed under the ISC License.

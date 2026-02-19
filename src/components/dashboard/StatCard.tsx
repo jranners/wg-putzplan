@@ -35,17 +35,17 @@ export function FinanceWidget({ finances, debts }: FinanceWidgetProps) {
             <div className="relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-end mb-8">
                 <div>
                     <p className="mb-2 text-sm font-semibold tracking-widest text-white/40 uppercase">
-                        Gesamt-Saldo
+                        Dein Saldo
                     </p>
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white">
+                    <h2 className={cn("text-3xl md:text-5xl font-bold tracking-tighter", finances.total >= 0 ? "text-emerald-400" : "text-rose-400")}>
                         {formatMoney(finances.total)}
                     </h2>
                     <div className="mt-4 flex items-center gap-4">
-                        <div className="flex items-center gap-1 text-emerald-400 text-sm font-medium">
+                        <div className="flex items-center gap-1 text-white/50 text-sm font-medium">
                             <TrendingUp className="h-4 w-4" />
-                            <span>Aktiv</span>
+                            <span>{finances.total >= 0 ? "Guthaben" : "Schulden"}</span>
                         </div>
-                        <div className="text-sm text-white/30">WG-Kasse</div>
+                        <div className="text-sm text-white/30">Persönliche Bilanz</div>
                     </div>
                 </div>
                 <Button className="flex items-center gap-2 rounded-lg bg-[#13b6ec] px-6 py-3 font-bold text-white transition-all hover:bg-[#13b6ec]/90 active:scale-95">
@@ -77,14 +77,30 @@ export function FinanceWidget({ finances, debts }: FinanceWidgetProps) {
                                         {formatMoney(Math.abs(debt.amount))}
                                     </span>
                                     {debt.amount < 0 && (
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            onClick={() => setSelectedDebt(debt)}
-                                            className="h-8 w-8 rounded-full border border-white/10 text-white/40 hover:text-white hover:bg-white/10"
-                                        >
-                                            <ArrowRight className="h-4 w-4" />
-                                        </Button>
+                                        <div className="flex gap-1">
+                                            {debt.paypalMeHandle && (
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() => window.open(`https://paypal.me/${debt.paypalMeHandle}/${Math.abs(debt.amount).toFixed(2)}`, '_blank')}
+                                                    className="h-8 w-8 rounded-full border border-[#003087]/30 text-[#003087] hover:bg-[#003087]/10 bg-[#003087]/5"
+                                                    title="Mit PayPal bezahlen"
+                                                >
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                                        <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.946 5.05-4.336 6.794-9.067 6.794h-2.14l-2.57 6.307c-.039.096-.134.155-.238.155H4.25c-.244 0-.423-.238-.364-.47l.149-.586.151-.587C4.249 18.004 4.343 17.9 4.49 17.9h1.79c.659 0 1.25-.426 1.4-1.127l2.83-13.376a.35.35 0 0 1 .33-.284h6.05c1.47 0 2.502.827 2.158 3.033-.188 1.206-.707 2.21-1.545 2.977-1.16 1.066-2.9 1.408-5.32 1.408h-.694a1.12 1.12 0 0 0-1.077 1.35l1.64 7.63c.092.428-.236.826-.676.826z" />
+                                                    </svg>
+                                                </Button>
+                                            )}
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => setSelectedDebt(debt)}
+                                                className="h-8 w-8 rounded-full border border-white/10 text-white/40 hover:text-white hover:bg-white/10"
+                                                title="Als bezahlt markieren"
+                                            >
+                                                <ArrowRight className="h-4 w-4" />
+                                            </Button>
+                                        </div>
                                     )}
                                 </div>
                             </div>

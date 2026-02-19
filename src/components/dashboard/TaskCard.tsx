@@ -95,44 +95,61 @@ export function TaskList({ tasks, users }: TaskListProps) {
                 users={users}
             />
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {tasks.map((task) => (
-                    <div
-                        key={task.id}
-                        className="group rounded-lg border border-white/5 bg-black/60 p-5 transition-colors hover:border-[#13b6ec]/40"
-                    >
-                        <div className="mb-4 flex items-start justify-between">
-                            <span
-                                className={cn(
-                                    "rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-                                    getPriorityStyle(task.priority)
-                                )}
-                            >
-                                {getPriorityLabel(task.priority)}
-                            </span>
-                            <span className="text-xs text-white/30">
-                                {formatDate(task.dueDate)}
-                            </span>
-                        </div>
-                        <h4 className="mb-1 text-base font-semibold text-white">
-                            {task.title}
-                        </h4>
-                        <p className="mb-6 text-sm text-white/50">{task.details}</p>
-                        <Button
-                            variant="default"
-                            onClick={() => handleToggle(task.id)}
-                            disabled={isPending}
-                            className="w-full border border-[#13b6ec] bg-transparent text-[#13b6ec] hover:bg-[#13b6ec] hover:text-white"
+                {tasks.map((task) => {
+                    const assignee = users.find((u) => u.id === task.assigneeId);
+                    return (
+                        <div
+                            key={task.id}
+                            className="group rounded-lg border border-white/5 bg-black/60 p-5 transition-colors hover:border-[#13b6ec]/40"
                         >
-                            {isPending ? (
-                                <span className="animate-pulse">Lädt...</span>
-                            ) : (
-                                <>
-                                    <Check className="mr-2 h-4 w-4" /> Erledigt
-                                </>
-                            )}
-                        </Button>
-                    </div>
-                ))}
+                            <div className="mb-4 flex items-start justify-between">
+                                <span
+                                    className={cn(
+                                        "rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                                        getPriorityStyle(task.priority)
+                                    )}
+                                >
+                                    {getPriorityLabel(task.priority)}
+                                </span>
+                                <div className="flex items-center gap-2">
+                                    {assignee && (
+                                        <div className="flex items-center gap-1.5 bg-white/5 rounded-full px-2 py-0.5" title={`Zugewiesen an: ${assignee.name}`}>
+                                            {assignee.avatarUrl ? (
+                                                <img src={assignee.avatarUrl} alt={assignee.name} className="w-4 h-4 rounded-full object-cover" />
+                                            ) : (
+                                                <div className="w-4 h-4 rounded-full bg-[#13b6ec] flex items-center justify-center text-[8px] font-bold text-white">
+                                                    {assignee.name.charAt(0)}
+                                                </div>
+                                            )}
+                                            <span className="text-[10px] text-white/60 max-w-[60px] truncate">{assignee.name}</span>
+                                        </div>
+                                    )}
+                                    <span className="text-xs text-white/30">
+                                        {formatDate(task.dueDate)}
+                                    </span>
+                                </div>
+                            </div>
+                            <h4 className="mb-1 text-base font-semibold text-white">
+                                {task.title}
+                            </h4>
+                            <p className="mb-6 text-sm text-white/50">{task.details}</p>
+                            <Button
+                                variant="default"
+                                onClick={() => handleToggle(task.id)}
+                                disabled={isPending}
+                                className="w-full border border-[#13b6ec] bg-transparent text-[#13b6ec] hover:bg-[#13b6ec] hover:text-white"
+                            >
+                                {isPending ? (
+                                    <span className="animate-pulse">Lädt...</span>
+                                ) : (
+                                    <>
+                                        <Check className="mr-2 h-4 w-4" /> Erledigt
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    );
+                })}
                 {tasks.length === 0 && (
                     <div className="col-span-full py-10 text-center text-white/40">
                         Keine offenen Aufgaben.

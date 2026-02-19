@@ -1,8 +1,155 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { Prisma } from "@/generated/prisma/client";
+import { db, inviteCodes, wgs, users, tasks, activities, expenses, shoppingItems, ledgers } from "@/lib/db";
+import { eq, and, isNull, asc, desc, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { getCurrentUser } from "@/lib/auth";
+import { v4 as uuidv4 } from "uuid";
+
+async function getAuthUser() {
+    const user = await getCurrentUser();
+    if (!user) throw new Error("Nicht eingeloggt");
+    return user;
+}
+
+export async function verifyInviteCode(code: string): Promise<ActionResponse<{ wgId: string; wgName: string }>> {
+    return actionWrapper(async () => {
+        const invite = await db.query.inviteCodes.findFirst({
+            where: eq(inviteCodes.code, code),
+            with: { wg: true }
+        });
+
+        if (!invite) throw new Error("Ungültiger Einladungscode.");
+        if (invite.usedBy) throw new Error("Dieser Code wurde bereits verwendet.");
+        if (new Date() > invite.expiresAt) throw new Error("Dieser Code ist abgelaufen.");
+
+        return { wgId: invite.wgId, wgName: (invite as any).wg.name };
+    });
+}
+
+export async function registerUser(
+    name: string,
+    email: string,
+    password: string,
+    inviteCode: string,
+    paypalMeHandle?: string,
+    avatarBase64?: string
+): Promise<ActionResponse> {
+    return actionWrapper(async () => {
+        if (!email || !password || !inviteCode) {
+            throw new Error("Bitte alle Pflichtfelder ausfüllen.");
+        }
+
+        // 1. Validate Invite Code
+        const invite = await db.query.inviteCodes.findFirst({
+            where: eq(inviteCodes.code, inviteCode)
+        });
+        if (!invite || invite.usedBy) throw new Error("Einladungscode ungültig oder bereits verwendet.");
+        if (new Date() > invite.expiresAt) throw new Error("Einladungscode abgelaufen.");
+
+        // 2. Check Existing User
+        const existingUser = await db.query.users.findFirst({
+            where: eq(users.email, email)
+        });
+        if (existingUser) {
+            throw new Error("Benutzer mit dieser Email existiert bereits.");
+        }
+
+        // 3. Hash Password
+        const bcrypt = await import("bcryptjs");
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        // 4. Create User
+        const userId = uuidv4();
+        await db.insert(users).values({
+            id: userId,
+            name,
+            email,
+            password: hashedPassword,
+            paypalMeHandle,
+            image: avatarBase64 || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name || email)}`,
+        });
+
+        // 5. Mark Invite Code as Used
+        await db
+            .update(inviteCodes)
+            .set({ usedBy: userId })
+            .where(eq(inviteCodes.id, invite.id));
+    });
+}
+
+export async function registerUserAndWG(
+    name: string,
+    email: string,
+    password: string,
+    wgName: string,
+    paypalMeHandle?: string,
+    avatarBase64?: string,
+    wgImageBase64?: string
+): Promise<ActionResponse> {
+    return actionWrapper(async () => {
+        if (!email || !password || !wgName) {
+            throw new Error("Bitte alle Pflichtfelder ausfüllen.");
+        }
+
+        // 1. Check Existing User
+        const existingUser = await db.query.users.findFirst({
+            where: eq(users.email, email)
+        });
+        if (existingUser) {
+            throw new Error("Benutzer mit dieser Email existiert bereits.");
+        }
+
+        // 2. Hash Password
+        const bcrypt = await import("bcryptjs");
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        // 3. Execution in Transaction
+        return await db.transaction(async (tx) => {
+            const userId = uuidv4();
+            const wgId = uuidv4();
+            const ledgerId = uuidv4();
+            const inviteCodeId = uuidv4();
+
+            // A. Create User (Role: Admin)
+            await tx.insert(users).values({
+                id: userId,
+                name,
+                email,
+                password: hashedPassword,
+                role: "admin",
+                paypalMeHandle,
+                image: avatarBase64 || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name || email)}`,
+            });
+
+            // B. Create WG
+            await tx.insert(wgs).values({
+                id: wgId,
+                name: wgName,
+                adminId: userId,
+                image: wgImageBase64 || null,
+            });
+
+            // C. Create Ledger
+            await tx.insert(ledgers).values({
+                id: ledgerId,
+                wgId: wgId,
+                balance: 0,
+            });
+
+            // D. Generate Initial Invite Code
+            const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+            await tx.insert(inviteCodes).values({
+                id: inviteCodeId,
+                code: `${wgName.substring(0, 3).toUpperCase()}-${code}`,
+                wgId: wgId,
+                expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
+            });
+
+            return undefined;
+        });
+    });
+}
 
 // ─── Response Types ──────────────────────────────────────────────
 
@@ -14,6 +161,7 @@ export interface Debt {
     userId: string;
     userName: string;
     avatarUrl?: string | null;
+    paypalMeHandle?: string | null;
     amount: number;
 }
 
@@ -41,6 +189,7 @@ export type TaskData = {
     isDone: boolean;
     rotation: string;
     assigneeId: string | null;
+    lastCompleted?: string | null;
 };
 
 export type ExpenseData = {
@@ -76,12 +225,14 @@ export type UserData = {
     name: string;
     role: string;
     avatarUrl: string | null;
+    paypalMeHandle?: string | null;
 };
 
 export type WGInfo = {
     id: string;
     name: string;
     adminId: string;
+    image?: string | null;
 };
 
 export type InviteCodeData = {
@@ -97,6 +248,7 @@ export interface WGData {
     wg: WGInfo | null;
     members: UserData[];
     inviteCodes: InviteCodeData[];
+    currentUserId: string;
 }
 
 // ─── Helpers ──────────────────────────────────────────────
@@ -114,58 +266,71 @@ async function actionWrapper<T>(action: () => Promise<T>): Promise<ActionRespons
     }
 }
 
-function serializeDate(d: Date): string {
-    return d.toISOString();
+function serializeDate(d: Date | null | undefined): string {
+    if (!d || isNaN(new Date(d).getTime())) return new Date().toISOString();
+    return new Date(d).toISOString();
 }
 
 // ─── DASHBOARD ──────────────────────────────────────────────
 
 export async function getDashboardData(): Promise<ActionResponse<DashboardData>> {
     return actionWrapper(async () => {
-        const currentUserId = "1";
+        const { id: currentUserId } = await getAuthUser();
 
-        const [tasks, activities, expenses, users] = await Promise.all([
-            prisma.task.findMany({
-                where: { isDone: false },
-                orderBy: { priority: "asc" },
+        const [dbTasks, dbActivities, dbExpenses, dbUsers] = await Promise.all([
+            db.query.tasks.findMany({
+                where: and(
+                    eq(tasks.isDone, false),
+                    eq(tasks.assigneeId, currentUserId)
+                ),
             }),
-            prisma.activity.findMany({
-                orderBy: { timestamp: "desc" },
+            db.query.activities.findMany({
+                orderBy: [desc(activities.timestamp)],
             }),
-            prisma.expense.findMany(),
-            prisma.user.findMany(),
+            db.query.expenses.findMany(),
+            db.query.users.findMany(),
         ]);
 
         // Sort tasks by priority (high → normal → low)
         const priorityOrder: Record<string, number> = { high: 0, normal: 1, low: 2 };
-        const sortedTasks = tasks.sort((a, b) => (priorityOrder[a.priority] ?? 1) - (priorityOrder[b.priority] ?? 1));
+        const sortedTasks = [...dbTasks].sort((a, b) => (priorityOrder[a.priority] ?? 1) - (priorityOrder[b.priority] ?? 1));
 
-        const income = expenses.filter(e => e.category === "rent").reduce((sum, e) => sum + e.amount, 0);
-        const fixed = expenses.filter(e => e.category === "utilities").reduce((sum, e) => sum + e.amount, 0);
-        const maintenance = expenses.filter(e => e.category === "maintenance").reduce((sum, e) => sum + e.amount, 0);
+        const income = dbExpenses.filter(e => e.category === "rent").reduce((sum, e) => sum + e.amount, 0);
+        const fixed = dbExpenses.filter(e => e.category === "utilities").reduce((sum, e) => sum + e.amount, 0);
+        const maintenance = dbExpenses.filter(e => e.category === "maintenance").reduce((sum, e) => sum + e.amount, 0);
 
-        const debts = calculateDebts(currentUserId, expenses, users);
+        const debts = calculateDebts(currentUserId, dbExpenses, dbUsers);
         const netDebts = debts.reduce((sum, d) => sum + d.amount, 0);
-        const total = 5000 + netDebts;
-        const buffer = total > 1000 ? total - 1000 : 0;
+        const total = netDebts;
+        const buffer = total > 0 ? total * 0.1 : 0;
 
         return {
             tasks: sortedTasks.map(t => ({
-                ...t,
+                id: t.id,
+                title: t.title,
+                details: t.details,
+                priority: t.priority,
                 dueDate: serializeDate(t.dueDate),
+                isDone: t.isDone || false,
+                rotation: t.rotation,
                 assigneeId: t.assigneeId,
+                lastCompleted: t.lastCompleted ? serializeDate(t.lastCompleted) : null,
             })),
-            activities: activities.map(a => ({
-                ...a,
+            activities: dbActivities.map(a => ({
+                id: a.id,
+                title: a.title,
+                meta: a.meta,
+                type: a.type,
                 timestamp: serializeDate(a.timestamp),
             })),
             finances: { total, income, fixed, maintenance, buffer },
             debts,
-            users: users.map(u => ({
+            users: dbUsers.map(u => ({
                 id: u.id,
-                name: u.name,
+                name: u.name || "Unbekannt",
                 role: u.role,
-                avatarUrl: u.avatarUrl
+                avatarUrl: u.avatarUrl,
+                paypalMeHandle: u.paypalMeHandle
             }))
         };
     });
@@ -175,35 +340,72 @@ export async function getDashboardData(): Promise<ActionResponse<DashboardData>>
 
 export async function toggleTaskStatus(taskId: string): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        const task = await prisma.task.findUnique({ where: { id: taskId } });
+        const task = await db.query.tasks.findFirst({ where: eq(tasks.id, taskId) });
         if (!task) throw new Error("Aufgabe nicht gefunden");
 
+        // STRICT PERMISSION CHECK
+        const { id: currentUserId } = await getAuthUser();
+        if (task.assigneeId && task.assigneeId !== currentUserId) {
+            throw new Error("Du kannst nur deine eigenen Aufgaben erledigen.");
+        }
+
         const wasDone = task.isDone;
-        await prisma.task.update({
-            where: { id: taskId },
-            data: { isDone: !task.isDone },
-        });
+        const now = new Date();
+
+        await db
+            .update(tasks)
+            .set({
+                isDone: !task.isDone,
+                lastCompleted: !wasDone ? now : task.lastCompleted
+            })
+            .where(eq(tasks.id, taskId));
 
         // If marking as done and has rotation, create next occurrence
         if (!wasDone && task.rotation && task.rotation !== "none") {
-            const nextDueDate = new Date(task.dueDate);
+            let nextDueDate = new Date(); // Start from completion date
+            let turnusDays = 0;
+
             switch (task.rotation) {
-                case "daily": nextDueDate.setDate(nextDueDate.getDate() + 1); break;
-                case "weekly": nextDueDate.setDate(nextDueDate.getDate() + 7); break;
-                case "biweekly": nextDueDate.setDate(nextDueDate.getDate() + 14); break;
-                case "monthly": nextDueDate.setMonth(nextDueDate.getMonth() + 1); break;
+                case "daily":
+                    turnusDays = 1;
+                    break;
+                case "weekly":
+                    turnusDays = 7;
+                    break;
+                case "biweekly":
+                    turnusDays = 14;
+                    break;
+                case "monthly":
+                    turnusDays = 30;
+                    break;
+                default:
+                    turnusDays = task.turnusDays || 7;
             }
 
-            await prisma.task.create({
-                data: {
-                    title: task.title,
-                    details: task.details,
-                    priority: task.priority,
-                    rotation: task.rotation,
-                    dueDate: nextDueDate,
-                    isDone: false,
-                    assigneeId: task.assigneeId,
-                },
+            // Calculate next due date
+            nextDueDate.setDate(nextDueDate.getDate() + turnusDays);
+
+            // Round Robin Assignment
+            let nextAssigneeId = task.assigneeId;
+            if (task.assigneeId) {
+                const dbUsers = await db.query.users.findMany({ orderBy: [asc(users.name)] });
+                const currentIndex = dbUsers.findIndex(u => u.id === task.assigneeId);
+                if (currentIndex !== -1) {
+                    const nextIndex = (currentIndex + 1) % dbUsers.length;
+                    nextAssigneeId = dbUsers[nextIndex].id;
+                }
+            }
+
+            await db.insert(tasks).values({
+                id: uuidv4(),
+                title: task.title,
+                details: task.details,
+                priority: task.priority,
+                rotation: task.rotation,
+                dueDate: nextDueDate,
+                isDone: false,
+                assigneeId: nextAssigneeId,
+                turnusDays: turnusDays,
             });
         }
 
@@ -221,24 +423,33 @@ export async function createTask(data: {
     assigneeId?: string;
 }): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        await prisma.task.create({
-            data: {
-                title: data.title,
-                details: data.details,
-                priority: data.priority,
-                dueDate: new Date(data.dueDate),
-                rotation: data.rotation || "none",
-                isDone: false,
-                assigneeId: data.assigneeId,
-            },
+        let turnusDays = 0;
+        if (data.rotation) {
+            switch (data.rotation) {
+                case "daily": turnusDays = 1; break;
+                case "weekly": turnusDays = 7; break;
+                case "biweekly": turnusDays = 14; break;
+                case "monthly": turnusDays = 30; break;
+            }
+        }
+
+        await db.insert(tasks).values({
+            id: uuidv4(),
+            title: data.title,
+            details: data.details,
+            priority: data.priority,
+            dueDate: new Date(data.dueDate),
+            rotation: data.rotation || "none",
+            isDone: false,
+            assigneeId: data.assigneeId || null,
+            turnusDays: turnusDays > 0 ? turnusDays : null,
         });
 
-        await prisma.activity.create({
-            data: {
-                title: `Aufgabe erstellt: ${data.title}`,
-                meta: "Neu hinzugefügt",
-                type: "info",
-            },
+        await db.insert(activities).values({
+            id: uuidv4(),
+            title: `Aufgabe erstellt: ${data.title}`,
+            meta: "Neu hinzugefügt",
+            type: "info",
         });
 
         revalidatePath("/");
@@ -256,33 +467,35 @@ export async function updateTask(taskId: string, updates: Partial<{
     assigneeId: string;
 }>): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        const data: Prisma.TaskUpdateInput = {};
-        if (updates.title !== undefined) data.title = updates.title;
-        if (updates.details !== undefined) data.details = updates.details;
-        if (updates.priority !== undefined) data.priority = updates.priority;
-        if (updates.dueDate !== undefined) data.dueDate = new Date(updates.dueDate);
-        if (updates.rotation !== undefined) data.rotation = updates.rotation;
-        if (updates.isDone !== undefined) data.isDone = updates.isDone;
-        if (updates.assigneeId !== undefined) {
-            data.assignee = updates.assigneeId
-                ? { connect: { id: updates.assigneeId } }
-                : { disconnect: true };
-        }
+        const updateData: any = {};
+        if (updates.title !== undefined) updateData.title = updates.title;
+        if (updates.details !== undefined) updateData.details = updates.details;
+        if (updates.priority !== undefined) updateData.priority = updates.priority;
+        if (updates.dueDate !== undefined) updateData.dueDate = new Date(updates.dueDate);
+        if (updates.rotation !== undefined) updateData.rotation = updates.rotation;
+        if (updates.isDone !== undefined) updateData.isDone = updates.isDone;
+        if (updates.assigneeId !== undefined) updateData.assigneeId = updates.assigneeId || null;
 
-        await prisma.task.update({ where: { id: taskId }, data });
+        await db.update(tasks).set(updateData).where(eq(tasks.id, taskId));
         revalidatePath("/");
         revalidatePath("/tasks");
     });
 }
 
 export async function getTasks(): Promise<TaskData[]> {
-    const tasks = await prisma.task.findMany({
-        orderBy: { dueDate: "asc" },
+    const dbTasks = await db.query.tasks.findMany({
+        orderBy: [asc(tasks.dueDate)],
     });
-    return tasks.map(t => ({
-        ...t,
+    return dbTasks.map(t => ({
+        id: t.id,
+        title: t.title,
+        details: t.details,
+        priority: t.priority,
         dueDate: serializeDate(t.dueDate),
+        isDone: t.isDone || false,
+        rotation: t.rotation,
         assigneeId: t.assigneeId,
+        lastCompleted: t.lastCompleted ? serializeDate(t.lastCompleted) : null,
     }));
 }
 
@@ -293,19 +506,19 @@ export async function addExpense(expense: {
     amount: number;
     category: string;
     date: string;
-    payerId: string;
     split: string;
 }): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        await prisma.expense.create({
-            data: {
-                title: expense.title,
-                amount: expense.amount,
-                category: expense.category,
-                date: new Date(expense.date),
-                payerId: expense.payerId,
-                split: expense.split,
-            },
+        const { id: currentUserId } = await getAuthUser();
+        await db.insert(expenses).values({
+            id: uuidv4(),
+            title: expense.title,
+            amount: expense.amount,
+            category: expense.category,
+            date: new Date(expense.date),
+            payerId: currentUserId,
+            split: expense.split,
+            transactionType: "EXPENSE",
         });
         revalidatePath("/expenses");
         revalidatePath("/");
@@ -314,29 +527,27 @@ export async function addExpense(expense: {
 
 export async function settleDebt(toUserId: string, amount: number): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        const currentUserId = "1";
-        const recipient = await prisma.user.findUnique({ where: { id: toUserId } });
+        const { id: currentUserId } = await getAuthUser();
+        const recipient = await db.query.users.findFirst({ where: eq(users.id, toUserId) });
         if (!recipient) throw new Error("Empfänger nicht gefunden");
 
-        await prisma.expense.create({
-            data: {
-                title: `Ausgleich: ${recipient.name}`,
-                amount,
-                payerId: currentUserId,
-                recipientId: toUserId,
-                transactionType: "SETTLEMENT",
-                date: new Date(),
-                category: "other",
-                split: "equal",
-            },
+        await db.insert(expenses).values({
+            id: uuidv4(),
+            title: `Ausgleich: ${recipient.name}`,
+            amount,
+            payerId: currentUserId,
+            recipientId: toUserId,
+            transactionType: "SETTLEMENT",
+            date: new Date(),
+            category: "other",
+            split: "equal",
         });
 
-        await prisma.activity.create({
-            data: {
-                title: "Schulden beglichen",
-                meta: `An ${recipient.name} ausgeglichen`,
-                type: "finance",
-            },
+        await db.insert(activities).values({
+            id: uuidv4(),
+            title: "Schulden beglichen",
+            meta: `An ${recipient.name} ausgeglichen`,
+            type: "finance",
         });
 
         revalidatePath("/");
@@ -345,20 +556,83 @@ export async function settleDebt(toUserId: string, amount: number): Promise<Acti
 }
 
 export async function getExpenses(): Promise<ExpenseData[]> {
-    const expenses = await prisma.expense.findMany({
-        orderBy: { date: "desc" },
+    const dbExpenses = await db.query.expenses.findMany({
+        orderBy: [desc(expenses.date)],
     });
-    return expenses.map(e => ({
-        ...e,
+    return dbExpenses.map(e => ({
+        id: e.id,
+        title: e.title,
+        amount: e.amount,
         date: serializeDate(e.date),
+        split: e.split,
+        category: e.category,
+        transactionType: e.transactionType,
+        payerId: e.payerId,
+        recipientId: e.recipientId,
     }));
 }
 
 export async function deleteExpense(expenseId: string): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        await prisma.expense.delete({ where: { id: expenseId } });
+        const { id: currentUserId } = await getAuthUser();
+
+        const expense = await db.query.expenses.findFirst({
+            where: eq(expenses.id, expenseId)
+        });
+
+        if (!expense) throw new Error("Ausgabe nicht gefunden.");
+
+        // Security Check: Only the payer can delete their expense
+        if (expense.payerId !== currentUserId) {
+            throw new Error("Sicherheitsfehler: Du kannst nur deine eigenen Ausgaben löschen.");
+        }
+
+        await db.delete(expenses).where(eq(expenses.id, expenseId));
         revalidatePath("/expenses");
         revalidatePath("/");
+    });
+}
+
+export async function resetWGData(): Promise<ActionResponse> {
+    return actionWrapper(async () => {
+        const { id: currentUserId } = await getAuthUser();
+
+        // Find WG where user is admin
+        const wg = await db.query.wgs.findFirst({
+            where: eq(wgs.adminId, currentUserId)
+        });
+
+        if (!wg) throw new Error("Nur der WG-Admin kann die Daten zurücksetzen.");
+
+        // Find all users associated with this WG via invite codes
+        const invites = await db.query.inviteCodes.findMany({
+            where: eq(inviteCodes.wgId, wg.id),
+        });
+
+        const userIdsToDelete = Array.from(new Set(invites.map(i => i.usedBy).filter(Boolean) as string[]));
+        if (!userIdsToDelete.includes(currentUserId)) {
+            userIdsToDelete.push(currentUserId);
+        }
+
+        return await db.transaction(async (tx) => {
+            // 1. Wipe all transactional data
+            await tx.delete(expenses);
+            await tx.delete(tasks);
+            await tx.delete(activities);
+            await tx.delete(shoppingItems);
+
+            // 2. Wipe WG infrastructure
+            await tx.delete(inviteCodes).where(eq(inviteCodes.wgId, wg.id));
+            await tx.delete(ledgers).where(eq(ledgers.wgId, wg.id));
+            await tx.delete(wgs).where(eq(wgs.id, wg.id));
+
+            // 3. Wipe all users associated with the WG
+            for (const userId of userIdsToDelete) {
+                await tx.delete(users).where(eq(users.id, userId));
+            }
+
+            return undefined;
+        });
     });
 }
 
@@ -370,14 +644,14 @@ export async function updateExpense(expenseId: string, updates: Partial<{
     split: string;
 }>): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        const data: Prisma.ExpenseUpdateInput = {};
-        if (updates.title !== undefined) data.title = updates.title;
-        if (updates.amount !== undefined) data.amount = updates.amount;
-        if (updates.category !== undefined) data.category = updates.category;
-        if (updates.date !== undefined) data.date = new Date(updates.date);
-        if (updates.split !== undefined) data.split = updates.split;
+        const updateData: any = {};
+        if (updates.title !== undefined) updateData.title = updates.title;
+        if (updates.amount !== undefined) updateData.amount = updates.amount;
+        if (updates.category !== undefined) updateData.category = updates.category;
+        if (updates.date !== undefined) updateData.date = new Date(updates.date);
+        if (updates.split !== undefined) updateData.split = updates.split;
 
-        await prisma.expense.update({ where: { id: expenseId }, data });
+        await db.update(expenses).set(updateData).where(eq(expenses.id, expenseId));
         revalidatePath("/expenses");
         revalidatePath("/");
     });
@@ -387,13 +661,13 @@ export async function updateExpense(expenseId: string, updates: Partial<{
 
 function calculateDebts(
     currentUserId: string,
-    expenses: { payerId: string; recipientId: string | null; amount: number; transactionType: string }[],
-    users: { id: string; name: string; avatarUrl: string | null }[]
+    expensesList: { payerId: string; recipientId: string | null; amount: number; transactionType: string }[],
+    usersList: { id: string; name: string | null; avatarUrl: string | null; paypalMeHandle?: string | null }[]
 ): Debt[] {
     const balances: Record<string, number> = {};
-    users.forEach(u => u.id !== currentUserId && (balances[u.id] = 0));
+    usersList.forEach(u => u.id !== currentUserId && (balances[u.id] = 0));
 
-    expenses.forEach(expense => {
+    expensesList.forEach(expense => {
         const type = expense.transactionType || "EXPENSE";
 
         if (type === "SETTLEMENT") {
@@ -403,53 +677,60 @@ function calculateDebts(
                 balances[expense.payerId] = (balances[expense.payerId] || 0) - expense.amount;
             }
         } else {
-            const numberOfUsers = users.length;
+            const numberOfUsers = usersList.length;
             if (numberOfUsers === 0) return;
             const splitAmount = expense.amount / numberOfUsers;
             if (expense.payerId === currentUserId) {
-                users.forEach(u => u.id !== currentUserId && (balances[u.id] = (balances[u.id] || 0) + splitAmount));
+                usersList.forEach(u => u.id !== currentUserId && (balances[u.id] = (balances[u.id] || 0) + splitAmount));
             } else {
                 balances[expense.payerId] = (balances[expense.payerId] || 0) - splitAmount;
             }
         }
     });
 
-    return users
+    return usersList
         .filter(u => u.id !== currentUserId)
-        .map(u => ({ userId: u.id, userName: u.name, avatarUrl: u.avatarUrl, amount: balances[u.id] || 0 }))
+        .map(u => ({
+            userId: u.id,
+            userName: u.name || "Unbekannt",
+            avatarUrl: u.avatarUrl,
+            paypalMeHandle: u.paypalMeHandle,
+            amount: balances[u.id] || 0
+        }))
         .filter(d => Math.abs(d.amount) > 0.01);
 }
 
 export async function getDebts(currentUserId: string): Promise<Debt[]> {
-    const [expenses, users] = await Promise.all([
-        prisma.expense.findMany(),
-        prisma.user.findMany(),
+    const [dbExpenses, dbUsers] = await Promise.all([
+        db.query.expenses.findMany(),
+        db.query.users.findMany(),
     ]);
-    return calculateDebts(currentUserId, expenses, users);
+    return calculateDebts(currentUserId, dbExpenses, dbUsers);
 }
 
 // ─── USERS ──────────────────────────────────────────────
 
 export async function getUsers(): Promise<UserData[]> {
-    const users = await prisma.user.findMany();
-    return users.map(u => ({
+    const dbUsers = await db.query.users.findMany();
+    return dbUsers.map(u => ({
         id: u.id,
-        name: u.name,
+        name: u.name || "Unbekannt",
         role: u.role,
         avatarUrl: u.avatarUrl,
+        paypalMeHandle: u.paypalMeHandle,
     }));
 }
 
 // ─── SHOPPING ──────────────────────────────────────────────
 
 export async function getShoppingItems(): Promise<ShoppingItemData[]> {
-    const items = await prisma.shoppingItem.findMany({
-        orderBy: { createdAt: "desc" },
+    const items = await db.query.shoppingItems.findMany({
+        orderBy: [desc(shoppingItems.createdAt)],
     });
     return items.map(i => ({
         id: i.id,
         title: i.title,
-        isBought: i.isBought,
+        isBought: i.isBought || false,
         addedBy: i.addedById,
         createdAt: serializeDate(i.createdAt),
     }));
@@ -457,12 +738,12 @@ export async function getShoppingItems(): Promise<ShoppingItemData[]> {
 
 export async function addShoppingItem(title: string): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        await prisma.shoppingItem.create({
-            data: {
-                title,
-                isBought: false,
-                addedById: "1",
-            },
+        const { id: userId } = await getAuthUser();
+        await db.insert(shoppingItems).values({
+            id: uuidv4(),
+            title,
+            isBought: false,
+            addedById: userId,
         });
         revalidatePath("/shopping");
     });
@@ -470,20 +751,20 @@ export async function addShoppingItem(title: string): Promise<ActionResponse> {
 
 export async function toggleShoppingItem(itemId: string): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        const item = await prisma.shoppingItem.findUnique({ where: { id: itemId } });
+        const item = await db.query.shoppingItems.findFirst({ where: eq(shoppingItems.id, itemId) });
         if (!item) throw new Error("Artikel nicht gefunden");
 
-        await prisma.shoppingItem.update({
-            where: { id: itemId },
-            data: { isBought: !item.isBought },
-        });
+        await db
+            .update(shoppingItems)
+            .set({ isBought: !item.isBought })
+            .where(eq(shoppingItems.id, itemId));
         revalidatePath("/shopping");
     });
 }
 
 export async function deleteShoppingItem(itemId: string): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        await prisma.shoppingItem.delete({ where: { id: itemId } });
+        await db.delete(shoppingItems).where(eq(shoppingItems.id, itemId));
         revalidatePath("/shopping");
     });
 }
@@ -492,23 +773,25 @@ export async function deleteShoppingItem(itemId: string): Promise<ActionResponse
 
 export async function getWGData(): Promise<ActionResponse<WGData>> {
     return actionWrapper(async () => {
-        const [wg, users, inviteCodes] = await Promise.all([
-            prisma.wG.findFirst(),
-            prisma.user.findMany(),
-            prisma.inviteCode.findMany({
-                where: { usedBy: null },
+        const { id: currentUserId } = await getAuthUser();
+        const [dbWg, dbUsers, dbInviteCodes] = await Promise.all([
+            db.query.wgs.findFirst(),
+            db.query.users.findMany(),
+            db.query.inviteCodes.findMany({
+                where: isNull(inviteCodes.usedBy),
             }),
         ]);
 
         return {
-            wg: wg ? { id: wg.id, name: wg.name, adminId: wg.adminId } : null,
-            members: users.map(u => ({
+            wg: dbWg ? { id: dbWg.id, name: dbWg.name, adminId: dbWg.adminId, image: dbWg.image } : null,
+            members: dbUsers.map(u => ({
                 id: u.id,
-                name: u.name,
+                name: u.name || "Unbekannt",
                 role: u.role,
                 avatarUrl: u.avatarUrl,
+                paypalMeHandle: u.paypalMeHandle
             })),
-            inviteCodes: inviteCodes.map(c => ({
+            inviteCodes: dbInviteCodes.map(c => ({
                 id: c.id,
                 code: c.code,
                 wgId: c.wgId,
@@ -516,14 +799,15 @@ export async function getWGData(): Promise<ActionResponse<WGData>> {
                 createdAt: serializeDate(c.createdAt),
                 expiresAt: serializeDate(c.expiresAt),
             })),
+            currentUserId,
         };
     });
 }
 
 export async function kickMember(userId: string): Promise<ActionResponse> {
     return actionWrapper(async () => {
-        const currentUserId = "1";
-        const wg = await prisma.wG.findFirst();
+        const { id: currentUserId } = await getAuthUser();
+        const wg = await db.query.wgs.findFirst();
         if (wg?.adminId !== currentUserId) {
             throw new Error("Nur der Admin kann Mitglieder entfernen.");
         }
@@ -531,7 +815,7 @@ export async function kickMember(userId: string): Promise<ActionResponse> {
             throw new Error("Du kannst dich nicht selbst entfernen.");
         }
 
-        await prisma.user.delete({ where: { id: userId } });
+        await db.delete(users).where(eq(users.id, userId));
         revalidatePath("/settings");
         revalidatePath("/");
     });
@@ -539,29 +823,69 @@ export async function kickMember(userId: string): Promise<ActionResponse> {
 
 export async function generateInviteCode(): Promise<ActionResponse<InviteCodeData>> {
     return actionWrapper(async () => {
-        const currentUserId = "1";
-        const wg = await prisma.wG.findFirst();
+        const { id: currentUserId } = await getAuthUser();
+        const wg = await db.query.wgs.findFirst();
         if (!wg || wg.adminId !== currentUserId) {
             throw new Error("Nur der Admin kann Einladungscodes erstellen.");
         }
 
         const digits = Math.floor(100000 + Math.random() * 900000).toString();
-        const code = await prisma.inviteCode.create({
-            data: {
-                code: `${wg.id}-${digits}`,
-                wgId: wg.id,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            },
+        const codeValue = `${wg.id}-${digits}`;
+        const id = uuidv4();
+        const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+        await db.insert(inviteCodes).values({
+            id,
+            code: codeValue,
+            wgId: wg.id,
+            expiresAt,
         });
 
         revalidatePath("/settings");
         return {
-            id: code.id,
-            code: code.code,
-            wgId: code.wgId,
-            usedBy: code.usedBy,
-            createdAt: serializeDate(code.createdAt),
-            expiresAt: serializeDate(code.expiresAt),
+            id,
+            code: codeValue,
+            wgId: wg.id,
+            usedBy: null,
+            createdAt: serializeDate(new Date()),
+            expiresAt: serializeDate(expiresAt),
         };
     });
+}
+
+export async function updateWGImage(imageBase64: string): Promise<ActionResponse> {
+    return actionWrapper(async () => {
+        const { id: userId } = await getAuthUser();
+        const wg = await db.query.wgs.findFirst();
+        if (!wg || wg.adminId !== userId) {
+            throw new Error("Nur der Admin kann das WG-Bild ändern.");
+        }
+
+        await db
+            .update(wgs)
+            .set({ image: imageBase64 })
+            .where(eq(wgs.id, wg.id));
+
+        revalidatePath("/management");
+        revalidatePath("/");
+    });
+}
+
+export async function updatePayPalHandle(handle: string): Promise<ActionResponse> {
+    return actionWrapper(async () => {
+        const { id: userId } = await getAuthUser();
+        await db
+            .update(users)
+            .set({ paypalMeHandle: handle })
+            .where(eq(users.id, userId));
+        revalidatePath("/settings");
+    });
+}
+
+// ─── DEV TOOLS ──────────────────────────────────────────────
+
+export async function saveUserCookie(userId: string) {
+    if (process.env.NODE_ENV === "production") return;
+    console.warn("saveUserCookie is deprecated via NextAuth");
+    revalidatePath("/");
 }

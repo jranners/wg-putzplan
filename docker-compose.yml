@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wg-putzplan
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=file:./data/prod.db
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - NEXTAUTH_URL=http://localhost:3000
+    volumes:
+      - ./data:/app/prisma/data
+    # command: sh -c "npx prisma migrate deploy && node server.js" 
+    # For sqlite we might need to push schema if using db push workflow
+    command: sh -c "npx prisma db push --schema ./prisma/schema.prisma && node server.js"

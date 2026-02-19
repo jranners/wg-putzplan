@@ -7,15 +7,17 @@ import { TaskCalendar } from "./TaskCalendar";
 import { Button } from "@/components/ui/button";
 import { LayoutList, Calendar as CalendarIcon, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UserData } from "@/app/actions";
 
 interface TasksViewProps {
     openTasks: Task[];
     completedTasks: Task[];
+    users: UserData[];
 }
 
 type ViewType = "list" | "calendar";
 
-export function TasksView({ openTasks, completedTasks }: TasksViewProps) {
+export function TasksView({ openTasks, completedTasks, users }: TasksViewProps) {
     const [view, setView] = useState<ViewType>("list");
 
     return (
@@ -64,14 +66,14 @@ export function TasksView({ openTasks, completedTasks }: TasksViewProps) {
                             </span>
                             Offen
                         </h2>
-                        <DetailedTaskList tasks={openTasks} />
+                        <DetailedTaskList tasks={openTasks} users={users} />
                     </section>
 
                     {/* Completed Tasks Section */}
                     {completedTasks.length > 0 && (
                         <section className="border-t border-white/5 pt-8">
                             <h2 className="mb-4 text-lg font-bold tracking-tight text-white/40">Erledigt (Letzte 30 Tage)</h2>
-                            <DetailedTaskList tasks={completedTasks} showCompleted />
+                            <DetailedTaskList tasks={completedTasks} showCompleted users={users} />
                         </section>
                     )}
                 </>

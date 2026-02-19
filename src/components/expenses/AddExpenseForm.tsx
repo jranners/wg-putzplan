@@ -82,7 +82,6 @@ export function AddExpenseForm() {
                 amount: totalAmount,
                 category,
                 date: new Date(date).toISOString(),
-                payerId: "1",
                 split: splitType,
             });
 

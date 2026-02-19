@@ -138,4 +138,21 @@ module.exports = {
     }
   }
 }
-```
+
+## 5. Mobile First Strategy (Approved)
+> **Core Principle**: The application is designed primarily for mobile usage, with a bottom navigation bar and touch-optimized interactions.
+
+### 5.1 Mobile Navigation
+- **Bottom Tab Bar**: Fixed at bottom.
+- **Items**: Home, Tasks, Finanzen, Einkauf, Menu.
+- **"Menu" Tab**: Opens a full-height Drawer/Sheet for secondary navigation (Settings, Statistics, Admin).
+
+### 5.2 Mobile Menu Drawer
+- **Profile Header**: Large user avatar and name at the top.
+- **Grid Layout**: Secondary items arranged in a 2-column grid for easy thumb access.
+- **Logout**: Explicit logout button in the profile header.
+
+### 5.3 Interaction Patterns
+- **Touch Targets**: Min 44x44px for all interactable elements.
+- **Gestures**: Swipe to complete (Tasks), Pull to refresh (Lists).
+- **Feedback**: Haptic feedback on critical actions (optional but recommended).

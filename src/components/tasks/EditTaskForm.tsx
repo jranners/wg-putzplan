@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useTransition } from "react"
 import { Task } from "@/types"
-import { updateTask } from "@/app/actions"
+import { updateTask, UserData } from "@/app/actions"
 import {
     Dialog,
     DialogContent,
@@ -30,10 +30,11 @@ import { cn } from "@/lib/utils"
 
 interface EditTaskFormProps {
     task: Task
+    users: UserData[]
     children: React.ReactNode
 }
 
-export function EditTaskForm({ task, children }: EditTaskFormProps) {
+export function EditTaskForm({ task, users, children }: EditTaskFormProps) {
     const [open, setOpen] = useState(false)
     const [isPending, startTransition] = useTransition()
     const [formData, setFormData] = useState({
@@ -139,15 +140,23 @@ export function EditTaskForm({ task, children }: EditTaskFormProps) {
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="assigneeId" className="text-white">Zugewiesen an (ID)</Label>
-                        <Input
-                            id="assigneeId"
-                            name="assigneeId"
+                        <Label htmlFor="assigneeId" className="text-white">Zugewiesen an</Label>
+                        <Select
                             value={formData.assigneeId}
-                            onChange={handleChange}
-                            className="bg-[#1A1A1A] border-white/10 text-white"
-                            placeholder="User ID (optional)"
-                        />
+                            onValueChange={(value) => handleSelectChange('assigneeId', value)}
+                        >
+                            <SelectTrigger className="bg-[#1A1A1A] border-white/10 text-white">
+                                <SelectValue placeholder="Wähle Person" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#1A1A1A] border-white/10 text-white">
+                                <SelectItem value="unassigned">Niemand</SelectItem>
+                                {users.map((user) => (
+                                    <SelectItem key={user.id} value={user.id}>
+                                        {user.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     <DialogFooter>
